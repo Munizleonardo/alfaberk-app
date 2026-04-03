@@ -38,7 +38,7 @@ export function CatalogHeader({ cartCount, onOpenCart }: CatalogHeaderProps) {
 
         <div className="mt-6 flex flex-col items-center sm:mt-8">
           <Image
-            src="/logo.png"
+            src="/img/logo.png"
             alt="Logo Football Jerseys"
             width={220}
             height={220}
