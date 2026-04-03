@@ -9,6 +9,7 @@ import {
   matchesFilters,
 } from "@/app/_components/catalog/catalog-filters";
 import { ProductGrid } from "@/app/_components/catalog/product-grid";
+import { ProductModal } from "@/app/_components/catalog/product-modal";
 import {
   catalog,
   getCartCount,
@@ -29,6 +30,7 @@ export function CatalogPage() {
   const [filters, setFilters] = useState<CatalogFilterState>(initialFilters);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<Jersey | null>(null);
 
   const teams = [...new Set(catalog.map((product) => product.team))];
   const filteredProducts = catalog.filter((product) =>
@@ -66,9 +68,14 @@ export function CatalogPage() {
     );
   };
 
+  const handleAddFromModal = (product: Jersey) => {
+    handleAddToCart(product);
+    setSelectedProduct(null);
+  };
+
   return (
     <>
-      <main className="flex min-h-screen flex-col px-4 py-4 md:px-8 md:py-8">
+      <main className="flex min-h-screen flex-col px-3 py-3 sm:px-4 sm:py-4 md:px-8 md:py-8">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-8">
           <CatalogHeader
             cartCount={cartCount}
@@ -86,6 +93,7 @@ export function CatalogPage() {
 
             <ProductGrid
               products={filteredProducts}
+              onOpen={(product) => setSelectedProduct(product)}
               onAddToCart={handleAddToCart}
             />
           </div>
@@ -97,6 +105,12 @@ export function CatalogPage() {
         items={cartItems}
         onClose={() => setIsCartOpen(false)}
         onRemoveItem={handleRemoveFromCart}
+      />
+
+      <ProductModal
+        product={selectedProduct}
+        onClose={() => setSelectedProduct(null)}
+        onAddToCart={handleAddFromModal}
       />
     </>
   );

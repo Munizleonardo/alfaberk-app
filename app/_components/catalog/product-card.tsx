@@ -5,6 +5,7 @@ import { Button } from "@/app/_components/ui/button";
 
 type ProductCardProps = {
   product: Jersey;
+  onOpen: (product: Jersey) => void;
   onAddToCart: (product: Jersey) => void;
 };
 
@@ -13,12 +14,16 @@ const currencyFormatter = new Intl.NumberFormat("pt-BR", {
   currency: "BRL",
 });
 
-export function ProductCard({ product, onAddToCart }: ProductCardProps) {
+export function ProductCard({
+  product,
+  onOpen,
+  onAddToCart,
+}: ProductCardProps) {
   return (
     <article className="group flex min-h-full flex-col gap-4 overflow-hidden rounded-[2rem] border border-white/80 bg-white/88 p-4 shadow-[0_18px_50px_rgba(90,80,45,0.08)] transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_30px_70px_rgba(90,80,45,0.12)]">
       <button
         type="button"
-        onClick={() => onAddToCart(product)}
+        onClick={() => onOpen(product)}
         className="flex cursor-pointer flex-col gap-4 text-left"
       >
         <div

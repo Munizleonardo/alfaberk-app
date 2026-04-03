@@ -1,13 +1,15 @@
 "use client";
 
 import Image from "next/image";
+import { ShoppingCart } from "lucide-react";
 import { useEffect, useState } from "react";
-import { getWhatsAppOrderLink, type Jersey } from "@/app/_lib/catalog";
+import { type Jersey } from "@/app/_lib/catalog";
 import { Button } from "@/app/_components/ui/button";
 
 type ProductModalProps = {
   product: Jersey | null;
   onClose: () => void;
+  onAddToCart: (product: Jersey) => void;
 };
 
 const currencyFormatter = new Intl.NumberFormat("pt-BR", {
@@ -15,7 +17,11 @@ const currencyFormatter = new Intl.NumberFormat("pt-BR", {
   currency: "BRL",
 });
 
-export function ProductModal({ product, onClose }: ProductModalProps) {
+export function ProductModal({
+  product,
+  onClose,
+  onAddToCart,
+}: ProductModalProps) {
   useEffect(() => {
     if (!product) {
       return;
@@ -37,14 +43,19 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(40,35,20,0.58)] px-4 py-6 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(40,35,20,0.58)] px-3 py-3 backdrop-blur-sm sm:px-4 sm:py-6">
       <div
         className="absolute inset-0 cursor-pointer"
         aria-hidden="true"
         onClick={onClose}
       />
 
-      <ModalContent key={product.id} product={product} onClose={onClose} />
+      <ModalContent
+        key={product.id}
+        product={product}
+        onClose={onClose}
+        onAddToCart={onAddToCart}
+      />
     </div>
   );
 }
@@ -52,29 +63,31 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
 function ModalContent({
   product,
   onClose,
+  onAddToCart,
 }: {
   product: Jersey;
   onClose: () => void;
+  onAddToCart: (product: Jersey) => void;
 }) {
   const [activeImage, setActiveImage] = useState(0);
 
   return (
-    <div className="relative z-10 flex max-h-[92vh] w-full max-w-5xl flex-col gap-6 overflow-y-auto rounded-[2rem] border border-white/75 bg-[color:color-mix(in_oklab,var(--card)_88%,white)] p-5 shadow-[0_30px_100px_rgba(60,50,25,0.2)] md:p-8">
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex flex-col gap-2">
+    <div className="relative z-10 flex max-h-[94vh] w-full max-w-5xl flex-col gap-5 overflow-y-auto rounded-[1.5rem] border border-white/75 bg-[color:color-mix(in_oklab,var(--card)_88%,white)] p-4 shadow-[0_30px_100px_rgba(60,50,25,0.2)] sm:gap-6 sm:rounded-[2rem] sm:p-5 md:p-8">
+      <div className="flex items-start justify-between gap-3 sm:gap-4">
+        <div className="flex min-w-0 flex-col gap-2">
           {product.badge ? (
             <span className="text-xs font-bold uppercase tracking-[0.24em] text-[color:var(--primary)]">
               {product.badge}
             </span>
           ) : null}
-          <h3 className="font-heading text-3xl font-semibold tracking-[-0.04em] text-[color:var(--foreground)]">
+          <h3 className="font-heading text-2xl font-semibold tracking-[-0.04em] text-[color:var(--foreground)] sm:text-3xl">
             {product.name}
           </h3>
         </div>
         <button
           type="button"
           onClick={onClose}
-          className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-[color:var(--border)] bg-[color:var(--secondary)] text-lg font-bold text-[color:var(--secondary-foreground)] transition hover:bg-[color:var(--muted)]"
+          className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full border border-[color:var(--border)] bg-[color:var(--secondary)] text-lg font-bold text-[color:var(--secondary-foreground)] transition hover:bg-[color:var(--muted)] sm:h-12 sm:w-12"
           aria-label="Fechar detalhes"
         >
           X
@@ -100,13 +113,13 @@ function ModalContent({
             />
           </div>
 
-          <div className="flex flex-wrap gap-3">
+          <div className="grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:gap-3">
             {product.images.map((image, index) => (
               <button
                 key={`${product.id}-${index}`}
                 type="button"
                 onClick={() => setActiveImage(index)}
-                className={`flex h-24 w-24 cursor-pointer items-center justify-center overflow-hidden rounded-2xl border p-2 transition ${
+                className={`flex aspect-square w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl border p-1.5 transition sm:h-24 sm:w-24 sm:rounded-2xl sm:p-2 ${
                   activeImage === index
                     ? "border-[color:var(--primary)] bg-[color:color-mix(in_oklab,var(--accent)_55%,white)]"
                     : "border-[color:var(--border)] bg-[color:var(--muted)]"
@@ -138,7 +151,7 @@ function ModalContent({
             </span>
           </div>
 
-          <p className="text-base leading-8 text-[color:var(--muted-foreground)]">
+          <p className="text-sm leading-7 text-[color:var(--muted-foreground)] sm:text-base sm:leading-8">
             {product.fullDescription}
           </p>
 
@@ -158,30 +171,26 @@ function ModalContent({
             </div>
           </div>
 
-          <div className="flex flex-col gap-2 rounded-[1.5rem] border border-[color:var(--border)] bg-white/70 p-5">
+          <div className="flex flex-col gap-2 rounded-[1.5rem] border border-[color:var(--border)] bg-white/70 p-4 sm:p-5">
             <span className="text-xs font-bold uppercase tracking-[0.24em] text-[color:var(--muted-foreground)]">
               Valor
             </span>
-            <strong className="font-heading text-4xl font-semibold tracking-[-0.04em] text-[color:var(--foreground)]">
+            <strong className="font-heading text-3xl font-semibold tracking-[-0.04em] text-[color:var(--foreground)] sm:text-4xl">
               {currencyFormatter.format(product.price)}
             </strong>
             <span className="text-sm text-[color:var(--muted-foreground)]">
-              Pedido enviado diretamente para o WhatsApp.
+              Veja os detalhes e adicione este item ao seu carrinho.
             </span>
           </div>
 
           <div className="flex flex-col gap-3 sm:flex-row">
             <Button
-              asChild
+              type="button"
+              onClick={() => onAddToCart(product)}
               className="h-12 flex-1 rounded-full bg-[color:var(--foreground)] text-white hover:bg-[color:var(--primary)]"
             >
-              <a
-                href={getWhatsAppOrderLink(product)}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Encomendar
-              </a>
+              <ShoppingCart />
+              Adicionar ao Carrinho
             </Button>
             <Button
               variant="outline"

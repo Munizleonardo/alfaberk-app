@@ -60,21 +60,21 @@ export function CartModal({
   const total = getCartTotal(items);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(40,35,20,0.58)] px-4 py-6 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(40,35,20,0.58)] px-3 py-3 backdrop-blur-sm sm:px-4 sm:py-6">
       <div
         className="absolute inset-0 cursor-pointer"
         aria-hidden="true"
         onClick={handleClose}
       />
 
-      <div className="relative z-10 flex max-h-[92vh] w-full max-w-3xl flex-col gap-6 overflow-y-auto rounded-[2rem] border border-white/75 bg-[color:color-mix(in_oklab,var(--card)_88%,white)] p-5 shadow-[0_30px_100px_rgba(60,50,25,0.2)] md:p-8">
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[color:var(--accent)] text-[color:var(--accent-foreground)]">
+      <div className="relative z-10 flex max-h-[94vh] w-full max-w-3xl flex-col gap-5 overflow-y-auto rounded-[1.5rem] border border-white/75 bg-[color:color-mix(in_oklab,var(--card)_88%,white)] p-4 shadow-[0_30px_100px_rgba(60,50,25,0.2)] sm:gap-6 sm:rounded-[2rem] sm:p-5 md:p-8">
+        <div className="flex items-start justify-between gap-3 sm:gap-4">
+          <div className="flex min-w-0 items-center gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[color:var(--accent)] text-[color:var(--accent-foreground)] sm:h-12 sm:w-12">
               <ShoppingBag />
             </div>
-            <div className="flex flex-col gap-1">
-              <h3 className="font-heading text-3xl font-semibold tracking-[-0.04em] text-[color:var(--foreground)]">
+            <div className="flex min-w-0 flex-col gap-1">
+              <h3 className="font-heading text-2xl font-semibold tracking-[-0.04em] text-[color:var(--foreground)] sm:text-3xl">
                 Seu carrinho
               </h3>
               <p className="text-sm text-[color:var(--muted-foreground)]">
@@ -86,7 +86,7 @@ export function CartModal({
           <button
             type="button"
             onClick={handleClose}
-            className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-[color:var(--border)] bg-[color:var(--secondary)] text-lg font-bold text-[color:var(--secondary-foreground)] transition hover:bg-[color:var(--muted)]"
+            className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full border border-[color:var(--border)] bg-[color:var(--secondary)] text-lg font-bold text-[color:var(--secondary-foreground)] transition hover:bg-[color:var(--muted)] sm:h-12 sm:w-12"
             aria-label="Fechar carrinho"
           >
             X
@@ -94,7 +94,7 @@ export function CartModal({
         </div>
 
         {!items.length ? (
-          <div className="flex min-h-[260px] flex-col items-center justify-center gap-4 rounded-[1.75rem] border border-dashed border-[color:var(--border)] bg-white/60 px-6 py-10 text-center">
+          <div className="flex min-h-[220px] flex-col items-center justify-center gap-4 rounded-[1.4rem] border border-dashed border-[color:var(--border)] bg-white/60 px-4 py-8 text-center sm:min-h-[260px] sm:rounded-[1.75rem] sm:px-6 sm:py-10">
             <span className="rounded-full bg-[color:var(--accent)] px-4 py-2 text-sm font-bold uppercase tracking-[0.2em] text-[color:var(--accent-foreground)]">
               Carrinho vazio
             </span>
@@ -109,11 +109,11 @@ export function CartModal({
               {items.map((item) => (
                 <div
                   key={item.product.id}
-                  className="flex flex-col gap-4 rounded-[1.5rem] border border-[color:var(--border)] bg-white/75 p-4 sm:flex-row sm:items-center sm:justify-between"
+                  className="flex flex-col gap-4 rounded-[1.3rem] border border-[color:var(--border)] bg-white/75 p-4 sm:flex-row sm:items-center sm:justify-between sm:rounded-[1.5rem]"
                 >
                   <div className="flex flex-col gap-2">
                     <div className="flex flex-wrap items-center gap-2">
-                      <h4 className="font-heading text-xl font-semibold text-[color:var(--foreground)]">
+                      <h4 className="font-heading text-lg font-semibold text-[color:var(--foreground)] sm:text-xl">
                         {item.product.name}
                       </h4>
                       <span className="rounded-full bg-[color:var(--muted)] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[color:var(--muted-foreground)]">
@@ -132,7 +132,7 @@ export function CartModal({
                     type="button"
                     variant="outline"
                     onClick={() => onRemoveItem(item.product.id)}
-                    className="h-11 rounded-full px-4"
+                    className="h-11 w-full rounded-full px-4 sm:w-auto"
                   >
                     <Trash2 />
                     Excluir produto
@@ -141,13 +141,13 @@ export function CartModal({
               ))}
             </div>
 
-            <div className="flex flex-col gap-4 rounded-[1.75rem] border border-[color:var(--border)] bg-[color:var(--muted)] p-5">
-              <div className="flex items-end justify-between gap-4">
+            <div className="flex flex-col gap-4 rounded-[1.4rem] border border-[color:var(--border)] bg-[color:var(--muted)] p-4 sm:rounded-[1.75rem] sm:p-5">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                 <div className="flex flex-col gap-1">
                   <span className="text-xs font-bold uppercase tracking-[0.24em] text-[color:var(--muted-foreground)]">
                     Valor total
                   </span>
-                  <strong className="font-heading text-4xl font-semibold tracking-[-0.04em] text-[color:var(--foreground)]">
+                  <strong className="font-heading text-3xl font-semibold tracking-[-0.04em] text-[color:var(--foreground)] sm:text-4xl">
                     {currencyFormatter.format(total)}
                   </strong>
                 </div>
@@ -155,7 +155,7 @@ export function CartModal({
                 <Button
                   type="button"
                   onClick={() => setShowRegionalContacts(true)}
-                  className="h-12 rounded-full bg-[color:var(--foreground)] px-6 text-white hover:bg-[color:var(--primary)]"
+                  className="h-12 w-full rounded-full bg-[color:var(--foreground)] px-6 text-white hover:bg-[color:var(--primary)] sm:w-auto"
                 >
                   Finalizar compra
                 </Button>

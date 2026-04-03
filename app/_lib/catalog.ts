@@ -36,7 +36,7 @@ const currencyFormatter = new Intl.NumberFormat("pt-BR", {
 export const catalog: Jersey[] = [
   {
     id: "brasil-2026-torcedor",
-    name: "Camisa Brasil 2026",
+    name: "Camisa Brasil 2026 - Torcedor",
     team: "Brasil",
     category: "Selecao",
     model: "Torcedor",
@@ -61,7 +61,7 @@ export const catalog: Jersey[] = [
   },
   {
     id: "brasil-2026-jogador",
-    name: "Camisa Brasil 2026",
+    name: "Camisa Brasil 2026 - Jogador",
     team: "Brasil",
     category: "Selecao",
     model: "Jogador",
@@ -85,18 +85,18 @@ export const catalog: Jersey[] = [
     },
   },
   {
-    id: "japao-home",
-    name: "Camisa Japão Home",
-    team: "Japão",
+    id: "brasil-2026-retro",
+    name: "Camisa Brasil 2026 - Retrô",
+    team: "Brasil",
     category: "Selecao",
-    model: "Torcedor",
+    model: "Retro",
     price: 249.9,
     sizes: ["P", "M", "G"],
     badge: "oferta relampago",
     shortDescription:
       "Tradicional com linhas marcantes e excelente presenca visual.",
     fullDescription:
-      "Modelo para torcedor com toque macio, cores vibrantes e composicao leve para quem quer vestir o manto no estadio ou no dia a dia.",
+      "Modelo retrô com toque macio, cores vibrantes e composicao leve para quem quer vestir o manto no estadio ou no dia a dia.",
       images: [
         "/img/brasil/retro/brasil01.webp",  
         "/img/brasil/retro/brasil02.webp", 

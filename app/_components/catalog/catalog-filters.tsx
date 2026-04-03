@@ -35,32 +35,32 @@ export function CatalogFilters({
   onReset,
 }: CatalogFiltersProps) {
   return (
-    <section className="flex w-full flex-col gap-6 rounded-[2rem] border border-white/70 bg-white/78 px-5 py-6 shadow-[0_20px_55px_rgba(90,80,45,0.08)] backdrop-blur md:px-8 md:py-8">
+    <section className="flex w-full flex-col gap-6 rounded-[1.6rem] border border-white/70 bg-white/78 px-4 py-5 shadow-[0_20px_55px_rgba(90,80,45,0.08)] backdrop-blur sm:px-5 sm:py-6 md:rounded-[2rem] md:px-8 md:py-8">
       <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
         <div className="flex flex-col gap-2">
           <span className="text-sm font-bold uppercase tracking-[0.22em] text-[color:var(--primary)]">
             Filtros do catalogo
           </span>
-          <h2 className="font-heading text-2xl font-semibold tracking-[-0.04em] text-[color:var(--foreground)] md:text-3xl">
+          <h2 className="font-heading text-xl font-semibold tracking-[-0.04em] text-[color:var(--foreground)] sm:text-2xl md:text-3xl">
             Encontre a peca certa sem esforco.
           </h2>
         </div>
-        <div className="flex items-center gap-3">
-          <span className="rounded-full border border-[color:var(--border)] bg-[color:var(--secondary)] px-4 py-2 text-sm font-semibold text-[color:var(--secondary-foreground)]">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <span className="w-full rounded-full border border-[color:var(--border)] bg-[color:var(--secondary)] px-4 py-2 text-center text-sm font-semibold text-[color:var(--secondary-foreground)] sm:w-auto">
             {resultsCount} resultado(s)
           </span>
           <button
             type="button"
             onClick={onReset}
-            className="cursor-pointer rounded-full bg-[color:var(--foreground)] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[color:color-mix(in_oklab,var(--foreground)_86%,black)]"
+            className="w-full cursor-pointer rounded-full bg-[color:var(--foreground)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[color:color-mix(in_oklab,var(--foreground)_86%,black)] sm:w-auto sm:py-2"
           >
             Limpar filtros
           </button>
         </div>
       </div>
 
-      <div className="flex flex-col gap-4 md:flex-row md:flex-wrap">
-        <div className="flex min-w-[220px] flex-1 flex-col gap-2">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="flex min-w-0 flex-col gap-2">
           <label className={filterLabelClassName} htmlFor="team">
             Time
           </label>
@@ -79,7 +79,7 @@ export function CatalogFilters({
           </select>
         </div>
 
-        <div className="flex min-w-[180px] flex-1 flex-col gap-2">
+        <div className="flex min-w-0 flex-col gap-2">
           <label className={filterLabelClassName} htmlFor="category">
             Categoria
           </label>
@@ -95,7 +95,7 @@ export function CatalogFilters({
           </select>
         </div>
 
-        <div className="flex min-w-[160px] flex-1 flex-col gap-2">
+        <div className="flex min-w-0 flex-col gap-2">
           <label className={filterLabelClassName} htmlFor="size">
             Tamanho
           </label>
@@ -113,7 +113,7 @@ export function CatalogFilters({
           </select>
         </div>
 
-        <div className="flex min-w-[180px] flex-1 flex-col gap-2">
+        <div className="flex min-w-0 flex-col gap-2">
           <label className={filterLabelClassName} htmlFor="minPrice">
             Preco de
           </label>
@@ -128,7 +128,7 @@ export function CatalogFilters({
           />
         </div>
 
-        <div className="flex min-w-[180px] flex-1 flex-col gap-2">
+        <div className="flex min-w-0 flex-col gap-2">
           <label className={filterLabelClassName} htmlFor="maxPrice">
             Preco ate
           </label>
@@ -143,7 +143,7 @@ export function CatalogFilters({
           />
         </div>
 
-        <div className="flex min-w-[200px] flex-1 flex-col gap-2">
+        <div className="flex min-w-0 flex-col gap-2">
           <label className={filterLabelClassName} htmlFor="model">
             Modelo da camisa
           </label>
