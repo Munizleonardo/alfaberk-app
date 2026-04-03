@@ -23,6 +23,11 @@ export type Jersey = {
   };
 };
 
+export type CartItem = {
+  product: Jersey;
+  quantity: number;
+};
+
 const currencyFormatter = new Intl.NumberFormat("pt-BR", {
   style: "currency",
   currency: "BRL",
@@ -30,11 +35,11 @@ const currencyFormatter = new Intl.NumberFormat("pt-BR", {
 
 export const catalog: Jersey[] = [
   {
-    id: "brasil-2026-home",
-    name: "Camisa Brasil 2026 Home",
+    id: "brasil-2026-torcedor",
+    name: "Camisa Brasil 2026",
     team: "Brasil",
     category: "Selecao",
-    model: "Jogador",
+    model: "Torcedor",
     price: 329.9,
     sizes: ["P", "M", "G", "GG"],
     badge: "",
@@ -43,9 +48,10 @@ export const catalog: Jersey[] = [
     fullDescription:
       "Versao inspirada no uniforme principal da Selecao, com acabamento premium, recortes anatomicos e tecido leve para uso casual ou em dia de jogo.",
     images: [
-      "/img/brasil/img1.png", 
-      "/img/brasil/img2.png", 
-      "/img/brasil/img3.png"
+      "/img/brasil/torcedor/brasil01.webp", 
+      "/img/brasil/torcedor/brasil02.webp",
+      "/img/brasil/torcedor/brasil03.webp",
+      "/img/brasil/torcedor/brasil04.webp",
     ],
     colors: {
       primary: "#14532d",
@@ -54,11 +60,11 @@ export const catalog: Jersey[] = [
     },
   },
   {
-    id: "alemanha-away",
-    name: "Camisa Alemanha Away",
-    team: "Alemanha",
+    id: "brasil-2026-jogador",
+    name: "Camisa Brasil 2026",
+    team: "Brasil",
     category: "Selecao",
-    model: "Torcedor",
+    model: "Jogador",
     price: 279.9,
     sizes: ["M", "G", "GG"],
     badge: "",
@@ -67,9 +73,10 @@ export const catalog: Jersey[] = [
     fullDescription:
       "Camisa away com tecido macio, gola reforcada e acabamento pensado para destacar o visual da torcida com muito conforto no uso diario.",
       images: [
-        "/img/alemanha/img1.png", 
-        "/img/alemanha/img2.png", 
-        "/img/alemanha/img3.png"
+        "/img/brasil/jogador/brasil04.webp", 
+        "/img/brasil/jogador/brasil02.webp", 
+        "/img/brasil/jogador/brasil03.webp", 
+        "/img/brasil/jogador/brasil01.webp", 
       ],
     colors: {
       primary: "#0f172a",
@@ -91,9 +98,10 @@ export const catalog: Jersey[] = [
     fullDescription:
       "Modelo para torcedor com toque macio, cores vibrantes e composicao leve para quem quer vestir o manto no estadio ou no dia a dia.",
       images: [
-        "/img/japao/img1.png", 
-        "/img/japao/img2.png", 
-        "/img/japao/img3.png"
+        "/img/brasil/retro/brasil01.webp",  
+        "/img/brasil/retro/brasil02.webp", 
+        "/img/brasil/retro/brasil03.webp", 
+        "/img/brasil/retro/brasil04.webp", 
       ],
     colors: {
       primary: "#111827",
@@ -109,6 +117,23 @@ export const catalogFilters = {
   models: ["Todos", "Torcedor", "Jogador", "Retro"] as const,
 };
 
+export const regionalContacts = [
+  {
+    id: "regiao-dos-lagos",
+    title: "Regiao: Sao Pedro da Aldeia, Araruama, Cabo Frio, Iguaba, Arraial",
+    phone: "5511000000001",
+  },
+  {
+    id: "regiao-macae",
+    title: "Regiao: Macae, Rio das Ostras",
+    phone: "5511000000002",
+  },
+] as const;
+
+function buildOrderMessage(lines: string[]) {
+  return lines.join("\n");
+}
+
 export function getWhatsAppOrderLink(product: Jersey) {
   const message = [
     "Ola! Tenho interesse nesta camisa:",
@@ -118,7 +143,38 @@ export function getWhatsAppOrderLink(product: Jersey) {
     `Modelo: ${product.model}`,
     `Preco: ${currencyFormatter.format(product.price)}`,
     `Descricao: ${product.fullDescription}`,
-  ].join("\n");
+  ];
 
-  return `https://wa.me/?text=${encodeURIComponent(message)}`;
+  return `https://wa.me/?text=${encodeURIComponent(buildOrderMessage(message))}`;
+}
+
+export function getCartTotal(items: CartItem[]) {
+  return items.reduce(
+    (total, item) => total + item.product.price * item.quantity,
+    0
+  );
+}
+
+export function getCartCount(items: CartItem[]) {
+  return items.reduce((count, item) => count + item.quantity, 0);
+}
+
+export function getRegionalContactLink(phone: string, items: CartItem[]) {
+  const messageLines = [
+    "Ola! Quero finalizar minha compra.",
+    "",
+    ...items.flatMap((item, index) => [
+      `${index + 1}. ${item.product.name}`,
+      `Quantidade: ${item.quantity}`,
+      `Modelo: ${item.product.model}`,
+      `Time: ${item.product.team}`,
+      `Subtotal: ${currencyFormatter.format(item.product.price * item.quantity)}`,
+      "",
+    ]),
+    `Total do pedido: ${currencyFormatter.format(getCartTotal(items))}`,
+  ];
+
+  return `https://wa.me/${phone}?text=${encodeURIComponent(
+    buildOrderMessage(messageLines)
+  )}`;
 }

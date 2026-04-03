@@ -3,10 +3,10 @@ import { ProductCard } from "@/app/_components/catalog/product-card";
 
 type ProductGridProps = {
   products: Jersey[];
-  onOpen: (product: Jersey) => void;
+  onAddToCart: (product: Jersey) => void;
 };
 
-export function ProductGrid({ products, onOpen }: ProductGridProps) {
+export function ProductGrid({ products, onAddToCart }: ProductGridProps) {
   if (!products.length) {
     return (
       <div className="flex min-h-[260px] w-full flex-col items-center justify-center gap-4 rounded-[2rem] border border-dashed border-[color:var(--border)] bg-white/70 px-6 py-10 text-center">
@@ -29,7 +29,7 @@ export function ProductGrid({ products, onOpen }: ProductGridProps) {
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {products.map((product) => (
           <div key={product.id} className="flex w-full">
-            <ProductCard product={product} onOpen={onOpen} />
+            <ProductCard product={product} onAddToCart={onAddToCart} />
           </div>
         ))}
       </div>

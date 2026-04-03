@@ -1,10 +1,11 @@
 import Image from "next/image";
-import { getWhatsAppOrderLink, type Jersey } from "@/app/_lib/catalog";
+import { ShoppingCart } from "lucide-react";
+import { type Jersey } from "@/app/_lib/catalog";
 import { Button } from "@/app/_components/ui/button";
 
 type ProductCardProps = {
   product: Jersey;
-  onOpen: (product: Jersey) => void;
+  onAddToCart: (product: Jersey) => void;
 };
 
 const currencyFormatter = new Intl.NumberFormat("pt-BR", {
@@ -12,12 +13,12 @@ const currencyFormatter = new Intl.NumberFormat("pt-BR", {
   currency: "BRL",
 });
 
-export function ProductCard({ product, onOpen }: ProductCardProps) {
+export function ProductCard({ product, onAddToCart }: ProductCardProps) {
   return (
     <article className="group flex min-h-full flex-col gap-4 overflow-hidden rounded-[2rem] border border-white/80 bg-white/88 p-4 shadow-[0_18px_50px_rgba(90,80,45,0.08)] transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_30px_70px_rgba(90,80,45,0.12)]">
       <button
         type="button"
-        onClick={() => onOpen(product)}
+        onClick={() => onAddToCart(product)}
         className="flex cursor-pointer flex-col gap-4 text-left"
       >
         <div
@@ -89,16 +90,12 @@ export function ProductCard({ product, onOpen }: ProductCardProps) {
           </strong>
         </div>
         <Button
-          asChild
+          type="button"
+          onClick={() => onAddToCart(product)}
           className="h-11 rounded-full bg-[color:var(--foreground)] px-5 text-white hover:bg-[color:var(--primary)]"
         >
-          <a
-            href={getWhatsAppOrderLink(product)}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Encomendar
-          </a>
+          <ShoppingCart />
+          Adicionar ao Carrinho
         </Button>
       </div>
     </article>

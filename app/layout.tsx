@@ -13,7 +13,7 @@ const sora = Sora({
 });
 
 export const metadata: Metadata = {
-  title: "Football Jerseys | Catalogo de Camisas",
+  title: "Football Jerseys | Camisa de Time",
   description:
     "Catalogo moderno de camisas de futebol com visual minimalista e experiencia premium.",
 };
