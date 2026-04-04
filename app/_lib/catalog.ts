@@ -145,13 +145,13 @@ export const catalogFilters = {
 export const regionalContacts = [
   {
     id: "regiao-dos-lagos",
-    title: "Regiao: Sao Pedro da Aldeia, Araruama, Cabo Frio, Iguaba, Arraial",
-    phone: "5511000000001",
+    title: "Região: São Pedro da Aldeia, Araruama, Cabo Frio, Iguaba, Arraial",
+    phone: "5522992742063",
   },
   {
     id: "regiao-macae",
-    title: "Regiao: Macae, Rio das Ostras",
-    phone: "5511000000002",
+    title: "Região: Macaé, Rio das Ostras",
+    phone: "5522981805018",
   },
 ] as const;
 
