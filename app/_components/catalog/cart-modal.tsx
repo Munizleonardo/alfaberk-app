@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ShoppingBag, Trash2 } from "lucide-react";
+import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import {
   getCartTotal,
   getRegionalContactLink,
   regionalContacts,
   type CartItem,
+  type JerseySize,
 } from "@/app/_lib/catalog";
 import { Button } from "@/app/_components/ui/button";
 
@@ -14,7 +15,11 @@ type CartModalProps = {
   isOpen: boolean;
   items: CartItem[];
   onClose: () => void;
-  onRemoveItem: (productId: string) => void;
+  onUpdateItemQuantity: (
+    productId: string,
+    size: JerseySize,
+    nextQuantity: number
+  ) => void;
 };
 
 const currencyFormatter = new Intl.NumberFormat("pt-BR", {
@@ -26,7 +31,7 @@ export function CartModal({
   isOpen,
   items,
   onClose,
-  onRemoveItem,
+  onUpdateItemQuantity,
 }: CartModalProps) {
   const [showRegionalContacts, setShowRegionalContacts] = useState(false);
   const shouldShowRegionalContacts = showRegionalContacts && items.length > 0;
@@ -108,7 +113,7 @@ export function CartModal({
             <div className="flex flex-col gap-4">
               {items.map((item) => (
                 <div
-                  key={item.product.id}
+                  key={`${item.product.id}-${item.size}`}
                   className="flex flex-col gap-4 rounded-[1.3rem] border border-[color:var(--border)] bg-[rgba(255,255,255,0.04)] p-4 sm:flex-row sm:items-center sm:justify-between sm:rounded-[1.5rem]"
                 >
                   <div className="flex flex-col gap-2">
@@ -121,22 +126,60 @@ export function CartModal({
                       </span>
                     </div>
                     <p className="text-sm text-[color:var(--muted-foreground)]">
-                      {item.product.team} - Quantidade: {item.quantity}
+                      {item.product.team} - Tamanho: {item.size}
                     </p>
                     <strong className="text-lg text-[color:var(--foreground)]">
                       {currencyFormatter.format(item.product.price * item.quantity)}
                     </strong>
                   </div>
 
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => onRemoveItem(item.product.id)}
-                    className="h-11 w-full rounded-full px-4 sm:w-auto"
-                  >
-                    <Trash2 />
-                    Excluir produto
-                  </Button>
+                  <div className="flex flex-col gap-2 sm:items-end">
+                    <div className="inline-flex items-center rounded-full border border-[color:var(--border)] bg-[rgba(255,255,255,0.04)] p-1">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          onUpdateItemQuantity(
+                            item.product.id,
+                            item.size,
+                            item.quantity - 1
+                          )
+                        }
+                        className="flex h-9 w-9 items-center justify-center rounded-full text-[color:var(--foreground)] transition hover:bg-[rgba(255,255,255,0.08)]"
+                        aria-label={`Diminuir quantidade de ${item.product.name}`}
+                      >
+                        <Minus className="size-4" />
+                      </button>
+                      <span className="min-w-10 text-center text-sm font-semibold text-[color:var(--foreground)]">
+                        {item.quantity}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          onUpdateItemQuantity(
+                            item.product.id,
+                            item.size,
+                            item.quantity + 1
+                          )
+                        }
+                        className="flex h-9 w-9 items-center justify-center rounded-full text-[color:var(--foreground)] transition hover:bg-[rgba(255,255,255,0.08)]"
+                        aria-label={`Aumentar quantidade de ${item.product.name}`}
+                      >
+                        <Plus className="size-4" />
+                      </button>
+                    </div>
+
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() =>
+                        onUpdateItemQuantity(item.product.id, item.size, 0)
+                      }
+                      className="h-11 w-full rounded-full px-4 sm:w-auto"
+                    >
+                      <Trash2 />
+                      Excluir produto
+                    </Button>
+                  </div>
                 </div>
               ))}
             </div>

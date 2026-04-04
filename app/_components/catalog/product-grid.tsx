@@ -1,13 +1,19 @@
-import type { Jersey } from "@/app/_lib/catalog";
+import { LayoutGrid, Rows3 } from "lucide-react";
+import type { CatalogMobileView } from "@/app/_components/catalog/catalog-page";
+import type { Jersey, JerseySize } from "@/app/_lib/catalog";
 import { ProductCard } from "@/app/_components/catalog/product-card";
 
 type ProductGridProps = {
+  mobileView: CatalogMobileView;
+  onMobileViewChange: (view: CatalogMobileView) => void;
   products: Jersey[];
   onOpen: (product: Jersey) => void;
-  onAddToCart: (product: Jersey) => void;
+  onAddToCart: (product: Jersey, size: JerseySize) => void;
 };
 
 export function ProductGrid({
+  mobileView,
+  onMobileViewChange,
   products,
   onOpen,
   onAddToCart,
@@ -31,11 +37,49 @@ export function ProductGrid({
 
   return (
     <div className="flex flex-col gap-2.5">
-      <div className="grid gap-2.5 md:grid-cols-2 md:gap-3.5 xl:grid-cols-3">
+      <div className="flex md:hidden">
+        <div className="inline-flex w-full rounded-full border border-[color:var(--border)] bg-[rgba(255,255,255,0.04)] p-1">
+          <button
+            type="button"
+            onClick={() => onMobileViewChange("blocks")}
+            className={`inline-flex flex-1 items-center justify-center gap-2 rounded-full px-3 py-2 text-[0.76rem] font-semibold transition ${
+              mobileView === "blocks"
+                ? "bg-[color:var(--primary)] text-[color:var(--primary-foreground)]"
+                : "text-[color:var(--muted-foreground)]"
+            }`}
+            aria-pressed={mobileView === "blocks"}
+          >
+            <Rows3 className="size-3.5" />
+            Blocos
+          </button>
+          <button
+            type="button"
+            onClick={() => onMobileViewChange("grid")}
+            className={`inline-flex flex-1 items-center justify-center gap-2 rounded-full px-3 py-2 text-[0.76rem] font-semibold transition ${
+              mobileView === "grid"
+                ? "bg-[color:var(--primary)] text-[color:var(--primary-foreground)]"
+                : "text-[color:var(--muted-foreground)]"
+            }`}
+            aria-pressed={mobileView === "grid"}
+          >
+            <LayoutGrid className="size-3.5" />
+            Grade
+          </button>
+        </div>
+      </div>
+
+      <div
+        className={`grid ${
+          mobileView === "grid"
+            ? "grid-cols-2 gap-2"
+            : "gap-2.5"
+        } md:grid-cols-2 md:gap-3.5 xl:grid-cols-3`}
+      >
         {products.map((product, index) => (
           <div key={product.id} className="flex w-full">
             <ProductCard
               index={index}
+              mobileView={mobileView}
               product={product}
               onOpen={onOpen}
               onAddToCart={onAddToCart}

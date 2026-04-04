@@ -3,13 +3,13 @@
 import Image from "next/image";
 import { ShoppingCart } from "lucide-react";
 import { useEffect, useState } from "react";
-import { type Jersey } from "@/app/_lib/catalog";
+import { type Jersey, type JerseySize } from "@/app/_lib/catalog";
 import { Button } from "@/app/_components/ui/button";
 
 type ProductModalProps = {
   product: Jersey | null;
   onClose: () => void;
-  onAddToCart: (product: Jersey) => void;
+  onAddToCart: (product: Jersey, size: JerseySize) => void;
 };
 
 const currencyFormatter = new Intl.NumberFormat("pt-BR", {
@@ -67,9 +67,10 @@ function ModalContent({
 }: {
   product: Jersey;
   onClose: () => void;
-  onAddToCart: (product: Jersey) => void;
+  onAddToCart: (product: Jersey, size: JerseySize) => void;
 }) {
   const [activeImage, setActiveImage] = useState(0);
+  const [selectedSize, setSelectedSize] = useState<JerseySize>(product.sizes[0]!);
 
   return (
     <div className="relative z-10 flex max-h-[94vh] w-full max-w-5xl flex-col gap-5 overflow-y-auto rounded-[1.5rem] border border-[rgba(255,255,255,0.08)] bg-[linear-gradient(180deg,rgba(18,22,20,0.98),rgba(12,15,13,0.99))] p-4 shadow-[0_30px_100px_rgba(0,0,0,0.4)] sm:gap-6 sm:rounded-[2rem] sm:p-5 md:p-8">
@@ -161,12 +162,18 @@ function ModalContent({
             </span>
             <div className="flex flex-wrap gap-2">
               {product.sizes.map((size) => (
-                <span
+                <button
                   key={size}
-                  className="rounded-full border border-[color:var(--border)] bg-[rgba(255,255,255,0.06)] px-4 py-2 text-sm font-semibold text-[color:var(--foreground)]"
+                  type="button"
+                  onClick={() => setSelectedSize(size)}
+                  className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
+                    selectedSize === size
+                      ? "border-[color:var(--primary)] bg-[color:var(--primary)] text-[color:var(--primary-foreground)]"
+                      : "border-[color:var(--border)] bg-[rgba(255,255,255,0.06)] text-[color:var(--foreground)]"
+                  }`}
                 >
                   {size}
-                </span>
+                </button>
               ))}
             </div>
           </div>
@@ -186,7 +193,7 @@ function ModalContent({
           <div className="flex flex-col gap-3 sm:flex-row">
             <Button
               type="button"
-              onClick={() => onAddToCart(product)}
+              onClick={() => onAddToCart(product, selectedSize)}
               className="h-12 flex-1 rounded-full bg-[color:var(--primary)] text-[color:var(--primary-foreground)] hover:brightness-110"
             >
               <ShoppingCart />

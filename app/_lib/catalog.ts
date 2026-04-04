@@ -25,6 +25,7 @@ export type Jersey = {
 
 export type CartItem = {
   product: Jersey;
+  size: JerseySize;
   quantity: number;
 };
 
@@ -216,6 +217,7 @@ export function getRegionalContactLink(phone: string, items: CartItem[]) {
     ...items.flatMap((item, index) => [
       `${index + 1}. ${item.product.name}`,
       `Quantidade: ${item.quantity}`,
+      `Tamanho: ${item.size}`,
       `Modelo: ${item.product.model}`,
       `Time: ${item.product.team}`,
       `Subtotal: ${currencyFormatter.format(item.product.price * item.quantity)}`,

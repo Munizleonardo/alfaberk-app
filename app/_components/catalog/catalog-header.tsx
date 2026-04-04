@@ -12,10 +12,12 @@ export function CatalogHeader({ cartCount, onOpenCart }: CatalogHeaderProps) {
     <header className="relative overflow-hidden rounded-[1rem] border border-[#d89b55]/24 bg-[#0a3522] shadow-[0_16px_44px_rgba(4,26,16,0.22)] sm:rounded-[1.45rem]">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_14%_16%,rgba(255,146,76,0.34),transparent_18%),radial-gradient(circle_at_86%_12%,rgba(65,210,120,0.24),transparent_21%),radial-gradient(circle_at_82%_88%,rgba(72,187,255,0.18),transparent_20%),radial-gradient(circle_at_50%_100%,rgba(255,205,84,0.18),transparent_30%),linear-gradient(180deg,rgba(11,78,51,0.16)_0%,rgba(4,30,20,0.7)_100%)]" />
       <div className="absolute inset-0 opacity-40 [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-position:center_center] [background-size:140px_140px]" />
-      <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-white/12" />
-      <div className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-white/10" />
-      <div className="absolute left-1/2 top-1/2 h-[15rem] w-[15rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10 sm:h-[20rem] sm:w-[20rem]" />
-      <div className="absolute left-1/2 top-1/2 h-[9rem] w-[9rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10 sm:h-[12rem] sm:w-[12rem]" />
+      <div className="absolute inset-y-[10%] left-1/2 w-px -translate-x-1/2 bg-white/16" />
+      <div className="absolute left-1/2 top-1/2 h-[9rem] w-[9rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/12 sm:h-[12rem] sm:w-[12rem]" />
+      <div className="absolute left-[4%] top-1/2 h-[44%] w-[12%] -translate-y-1/2 rounded-r-[1.5rem] border border-l-0 border-white/16 sm:w-[10%]" />
+      <div className="absolute left-[4%] top-1/2 h-[26%] w-[5%] -translate-y-1/2 rounded-r-[1rem] border border-l-0 border-white/16 sm:w-[4.5%]" />
+      <div className="absolute right-[4%] top-1/2 h-[44%] w-[12%] -translate-y-1/2 rounded-l-[1.5rem] border border-r-0 border-white/16 sm:w-[10%]" />
+      <div className="absolute right-[4%] top-1/2 h-[26%] w-[5%] -translate-y-1/2 rounded-l-[1rem] border border-r-0 border-white/16 sm:w-[4.5%]" />
 
       <div className="relative flex min-h-[268px] flex-col items-center justify-center px-3 py-5 text-center sm:px-5 sm:py-7 md:min-h-[360px] md:px-8 md:py-9">
         <div className="absolute right-4 top-4 z-10 sm:right-6 sm:top-6 md:right-8 md:top-8">
@@ -38,7 +40,7 @@ export function CatalogHeader({ cartCount, onOpenCart }: CatalogHeaderProps) {
 
         <div className="mt-3.5 flex flex-col items-center sm:mt-5">
           <Image
-            src="/img/logo.png"
+            src="/img/logo1.png"
             alt="Logo Football Jerseys"
             width={220}
             height={220}
