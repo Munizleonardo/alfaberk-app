@@ -28,7 +28,7 @@ const filterLabelClassName =
   "text-[0.68rem] font-bold uppercase tracking-[0.26em] text-[color:var(--muted-foreground)]";
 
 const filterInputClassName =
-  "w-full rounded-2xl border border-[color:var(--border)] bg-[color:color-mix(in_oklab,var(--card)_84%,white)] px-4 py-3 text-sm text-[color:var(--foreground)] outline-none transition placeholder:text-[color:var(--muted-foreground)] focus:border-[color:var(--primary)] focus:ring-4 focus:ring-[color:color-mix(in_oklab,var(--primary)_12%,white)]";
+  "w-full rounded-xl border border-[color:var(--border)] bg-[color:color-mix(in_oklab,var(--card)_84%,white)] px-3 py-2.5 text-[0.84rem] text-[color:var(--foreground)] outline-none transition placeholder:text-[color:var(--muted-foreground)] focus:border-[color:var(--primary)] focus:ring-4 focus:ring-[color:color-mix(in_oklab,var(--primary)_12%,white)]";
 
 export function CatalogFilters({
   filters,
@@ -45,24 +45,25 @@ export function CatalogFilters({
   };
 
   return (
-    <section className="flex w-full flex-col gap-6 rounded-[1.6rem] border border-white/70 bg-white/78 px-4 py-5 shadow-[0_20px_55px_rgba(90,80,45,0.08)] backdrop-blur sm:px-5 sm:py-6 md:rounded-[2rem] md:px-8 md:py-8">
+    <section className="relative flex w-full flex-col gap-3.5 overflow-hidden rounded-[1rem] border border-white/70 bg-[linear-gradient(135deg,rgba(255,255,255,0.86),rgba(250,239,214,0.8))] px-3 py-3 shadow-[0_12px_28px_rgba(90,80,45,0.07)] backdrop-blur sm:px-4 sm:py-4 md:rounded-[1.35rem] md:px-5 md:py-5">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-14 bg-[radial-gradient(circle_at_top,rgba(255,171,79,0.18),transparent_68%)]" />
       <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
         <div className="flex flex-col gap-2">
-          <span className="text-sm font-bold uppercase tracking-[0.22em] text-[color:var(--primary)]">
+          <span className="text-[0.64rem] font-bold uppercase tracking-[0.2em] text-[color:var(--primary)]">
             Filtros do catalogo
           </span>
-          <h2 className="font-heading text-xl font-semibold tracking-[-0.04em] text-[color:var(--foreground)] sm:text-2xl md:text-3xl">
+          <h2 className="font-heading text-[0.95rem] font-semibold tracking-[-0.04em] text-[color:var(--foreground)] sm:text-[1.12rem] md:text-[1.42rem]">
             Encontre a peca certa sem esforco.
           </h2>
         </div>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-          <span className="w-full rounded-full border border-[color:var(--border)] bg-[color:var(--secondary)] px-4 py-2 text-center text-sm font-semibold text-[color:var(--secondary-foreground)] sm:w-auto">
+          <span className="w-full rounded-full border border-[color:var(--border)] bg-[color:var(--secondary)] px-3 py-1.5 text-center text-[0.78rem] font-semibold text-[color:var(--secondary-foreground)] sm:w-auto">
             {resultsCount} resultado(s)
           </span>
           <button
             type="button"
             onClick={() => setIsMobileFiltersOpen((current) => !current)}
-            className="w-full cursor-pointer rounded-full border border-[color:var(--border)] bg-white px-5 py-3 text-sm font-semibold text-[color:var(--foreground)] transition hover:bg-[color:var(--secondary)] md:hidden"
+            className="w-full cursor-pointer rounded-full border border-[color:var(--border)] bg-white px-3.5 py-2.5 text-[0.8rem] font-semibold text-[color:var(--foreground)] transition hover:bg-[color:var(--secondary)] md:hidden"
             aria-expanded={isMobileFiltersOpen}
             aria-controls="catalog-mobile-filters"
           >
@@ -71,7 +72,7 @@ export function CatalogFilters({
           <button
             type="button"
             onClick={handleReset}
-            className="hidden w-full cursor-pointer rounded-full bg-[color:var(--foreground)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[color:color-mix(in_oklab,var(--foreground)_86%,black)] sm:w-auto sm:py-2 md:block"
+            className="hidden w-full cursor-pointer rounded-full bg-[color:var(--foreground)] px-3.5 py-2.5 text-[0.8rem] font-semibold text-white transition hover:bg-[color:color-mix(in_oklab,var(--foreground)_86%,black)] sm:w-auto sm:py-2 md:block"
           >
             Limpar filtros
           </button>
@@ -80,7 +81,7 @@ export function CatalogFilters({
 
       <div
         id="catalog-mobile-filters"
-        className={`${isMobileFiltersOpen ? "flex" : "hidden"} flex-col gap-4 md:grid md:grid-cols-2 xl:grid-cols-3`}
+        className={`${isMobileFiltersOpen ? "flex" : "hidden"} flex-col gap-2.5 md:grid md:grid-cols-2 md:gap-3 xl:grid-cols-3`}
       >
         <div className="flex min-w-0 flex-col gap-2">
           <label className={filterLabelClassName} htmlFor="team">
@@ -185,7 +186,7 @@ export function CatalogFilters({
         <button
           type="button"
           onClick={handleReset}
-          className="w-full cursor-pointer rounded-full bg-[color:var(--foreground)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[color:color-mix(in_oklab,var(--foreground)_86%,black)] md:hidden"
+          className="w-full cursor-pointer rounded-full bg-[color:var(--foreground)] px-3.5 py-2.5 text-[0.8rem] font-semibold text-white transition hover:bg-[color:color-mix(in_oklab,var(--foreground)_86%,black)] md:hidden"
         >
           Limpar filtros
         </button>

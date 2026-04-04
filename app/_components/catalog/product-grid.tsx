@@ -14,7 +14,7 @@ export function ProductGrid({
 }: ProductGridProps) {
   if (!products.length) {
     return (
-      <div className="flex min-h-[260px] w-full flex-col items-center justify-center gap-4 rounded-[2rem] border border-dashed border-[color:var(--border)] bg-white/70 px-6 py-10 text-center">
+      <div className="flex min-h-[180px] w-full flex-col items-center justify-center gap-3 rounded-[1rem] border border-dashed border-[color:var(--border)] bg-white/72 px-4 py-5 text-center">
         <span className="rounded-full bg-[color:var(--accent)] px-4 py-2 text-sm font-bold uppercase tracking-[0.2em] text-[color:var(--accent-foreground)]">
           Nenhum item encontrado
         </span>
@@ -30,8 +30,8 @@ export function ProductGrid({
   }
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+    <div className="flex flex-col gap-2.5">
+      <div className="grid gap-2.5 md:grid-cols-2 md:gap-3.5 xl:grid-cols-3">
         {products.map((product) => (
           <div key={product.id} className="flex w-full">
             <ProductCard
