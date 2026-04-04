@@ -1,6 +1,9 @@
+"use client";
+
+import { useState } from "react";
 import type { Jersey, JerseyModel, JerseySize } from "@/app/_lib/catalog";
 
-type CategoryFilter = "Todas" | "Clube" | "Selecao";
+type CategoryFilter = "Todas" | "Clube" | "Seleção";
 type SizeFilter = "Todos" | JerseySize;
 type ModelFilter = "Todos" | JerseyModel;
 
@@ -34,6 +37,13 @@ export function CatalogFilters({
   onChange,
   onReset,
 }: CatalogFiltersProps) {
+  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
+
+  const handleReset = () => {
+    onReset();
+    setIsMobileFiltersOpen(false);
+  };
+
   return (
     <section className="flex w-full flex-col gap-6 rounded-[1.6rem] border border-white/70 bg-white/78 px-4 py-5 shadow-[0_20px_55px_rgba(90,80,45,0.08)] backdrop-blur sm:px-5 sm:py-6 md:rounded-[2rem] md:px-8 md:py-8">
       <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
@@ -51,15 +61,27 @@ export function CatalogFilters({
           </span>
           <button
             type="button"
-            onClick={onReset}
-            className="w-full cursor-pointer rounded-full bg-[color:var(--foreground)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[color:color-mix(in_oklab,var(--foreground)_86%,black)] sm:w-auto sm:py-2"
+            onClick={() => setIsMobileFiltersOpen((current) => !current)}
+            className="w-full cursor-pointer rounded-full border border-[color:var(--border)] bg-white px-5 py-3 text-sm font-semibold text-[color:var(--foreground)] transition hover:bg-[color:var(--secondary)] md:hidden"
+            aria-expanded={isMobileFiltersOpen}
+            aria-controls="catalog-mobile-filters"
+          >
+            {isMobileFiltersOpen ? "Ocultar filtros" : "Abrir filtros"}
+          </button>
+          <button
+            type="button"
+            onClick={handleReset}
+            className="hidden w-full cursor-pointer rounded-full bg-[color:var(--foreground)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[color:color-mix(in_oklab,var(--foreground)_86%,black)] sm:w-auto sm:py-2 md:block"
           >
             Limpar filtros
           </button>
         </div>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <div
+        id="catalog-mobile-filters"
+        className={`${isMobileFiltersOpen ? "flex" : "hidden"} flex-col gap-4 md:grid md:grid-cols-2 xl:grid-cols-3`}
+      >
         <div className="flex min-w-0 flex-col gap-2">
           <label className={filterLabelClassName} htmlFor="team">
             Time
@@ -91,7 +113,7 @@ export function CatalogFilters({
           >
             <option value="Todas">Todas</option>
             <option value="Clube">Clube</option>
-            <option value="Selecao">Selecao</option>
+            <option value="Seleção">Seleção</option>
           </select>
         </div>
 
@@ -159,6 +181,14 @@ export function CatalogFilters({
             <option value="Retro">Retro</option>
           </select>
         </div>
+
+        <button
+          type="button"
+          onClick={handleReset}
+          className="w-full cursor-pointer rounded-full bg-[color:var(--foreground)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[color:color-mix(in_oklab,var(--foreground)_86%,black)] md:hidden"
+        >
+          Limpar filtros
+        </button>
       </div>
     </section>
   );

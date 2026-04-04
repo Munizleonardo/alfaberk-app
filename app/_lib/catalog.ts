@@ -1,4 +1,4 @@
-export type JerseyCategory = "Clube" | "Selecao";
+export type JerseyCategory = "Clube" | "Seleção";
 
 export type JerseyModel = "Torcedor" | "Jogador" | "Retro";
 
@@ -109,10 +109,35 @@ export const catalog: Jersey[] = [
       accent: "#f59e0b",
     },
   },
+  {
+    id: "brasil-2026-retro94",
+    name: "Camisa Brasil - Retrô 94",
+    team: "Brasil",
+    category: "Seleção",
+    model: "Retro",
+    price: 199.9,
+    sizes: ["P", "M", "G", "GG"],
+    badge: "",
+    shortDescription:
+      "Modelagem premium com tecido respirável e escudo aplicado em relevo.",
+    fullDescription:
+      "Versão inspirada no uniforme principal da Seleção, com acabamento premium, recortes anatomicos e tecido leve para uso casual ou em dia de jogo.",
+    images: [
+      "/img/brasil/retro94/brasil01.webp", 
+      "/img/brasil/retro94/brasil02.webp", 
+      "/img/brasil/retro94/03.webp", 
+      "/img/brasil/retro94/04.webp", 
+    ],
+    colors: {
+      primary: "#14532d",
+      secondary: "#facc15",
+      accent: "#2563eb",
+    },
+  },
 ];
 
 export const catalogFilters = {
-  categories: ["Todas", "Clube", "Selecao"] as const,
+  categories: ["Todas", "Clube", "Seleção"] as const,
   sizes: ["Todos", "P", "M", "G", "GG"] as const,
   models: ["Todos", "Torcedor", "Jogador", "Retro"] as const,
 };

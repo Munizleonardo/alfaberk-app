@@ -44,12 +44,12 @@ export function CatalogHeader({ cartCount, onOpenCart }: CatalogHeaderProps) {
             height={220}
             className="w-[130px] drop-shadow-[0_10px_30px_rgba(0,0,0,0.28)] sm:w-[180px] md:w-[220px]"
           />
-          <h1 className="mt-4 px-4 font-heading text-2xl font-semibold tracking-[0.14em] text-[#d7b77b] uppercase sm:mt-5 sm:text-4xl sm:tracking-[0.22em] md:text-5xl">
+          <h1 className="mt-4 px-4 text-balance font-heading text-2xl font-semibold tracking-[0.08em] text-[#d7b77b] uppercase sm:mt-5 sm:text-4xl sm:tracking-[0.22em] md:text-5xl">
             Football Jerseys
           </h1>
         </div>
 
-        <p className="mt-5 max-w-3xl px-2 text-sm leading-6 text-[#f2eadf]/88 sm:mt-6 sm:text-base sm:leading-7 md:text-lg">
+        <p className="mt-5 max-w-3xl px-2 text-balance text-sm leading-6 text-[#f2eadf]/88 sm:mt-6 sm:text-base sm:leading-7 md:text-lg">
           Camisas selecionadas com apresentacao mais refinada, navegacao leve e
           um visual inspirado no universo do futebol.
         </p>

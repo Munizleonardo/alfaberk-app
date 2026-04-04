@@ -20,11 +20,11 @@ export function ProductCard({
   onAddToCart,
 }: ProductCardProps) {
   return (
-    <article className="group flex min-h-full flex-col gap-4 overflow-hidden rounded-[2rem] border border-white/80 bg-white/88 p-4 shadow-[0_18px_50px_rgba(90,80,45,0.08)] transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_30px_70px_rgba(90,80,45,0.12)]">
+    <article className="group flex min-h-full min-w-0 flex-col gap-4 overflow-hidden rounded-[2rem] border border-white/80 bg-white/88 p-4 shadow-[0_18px_50px_rgba(90,80,45,0.08)] transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_30px_70px_rgba(90,80,45,0.12)]">
       <button
         type="button"
         onClick={() => onOpen(product)}
-        className="flex cursor-pointer flex-col gap-4 text-left"
+        className="flex min-w-0 cursor-pointer flex-col gap-4 text-left"
       >
         <div
           className="relative aspect-square overflow-hidden rounded-[1.6rem] border border-white/30"
@@ -52,18 +52,18 @@ export function ProductCard({
         </div>
 
         <div className="flex flex-col gap-3">
-          <div className="flex items-start justify-between gap-3">
-            <div className="flex flex-col gap-1">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div className="flex min-w-0 flex-1 flex-col gap-1">
               {product.badge ? (
                 <span className="text-xs font-bold uppercase tracking-[0.22em] text-[color:var(--primary)]">
                   {product.badge}
                 </span>
               ) : null}
-              <h3 className="font-heading text-xl font-semibold tracking-[-0.04em] text-[color:var(--foreground)]">
+              <h3 className="text-balance font-heading text-xl font-semibold tracking-[-0.04em] text-[color:var(--foreground)]">
                 {product.name}
               </h3>
             </div>
-            <span className="rounded-full border border-[color:var(--border)] bg-[color:var(--secondary)] px-3 py-1 text-xs font-bold text-[color:var(--secondary-foreground)]">
+            <span className="shrink-0 rounded-full border border-[color:var(--border)] bg-[color:var(--secondary)] px-3 py-1 text-xs font-bold text-[color:var(--secondary-foreground)]">
               {product.category}
             </span>
           </div>
@@ -85,7 +85,7 @@ export function ProductCard({
         </div>
       </button>
 
-      <div className="mt-auto flex items-center justify-between gap-3">
+      <div className="mt-auto flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-col gap-1">
           <span className="text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--muted-foreground)]">
             Valor
@@ -97,7 +97,7 @@ export function ProductCard({
         <Button
           type="button"
           onClick={() => onAddToCart(product)}
-          className="h-11 rounded-full bg-[color:var(--foreground)] px-5 text-white hover:bg-[color:var(--primary)]"
+          className="h-auto min-h-11 w-full rounded-full bg-[color:var(--foreground)] px-4 py-3 text-center leading-tight whitespace-normal text-white hover:bg-[color:var(--primary)] sm:w-auto sm:px-5"
         >
           <ShoppingCart />
           Adicionar ao Carrinho
