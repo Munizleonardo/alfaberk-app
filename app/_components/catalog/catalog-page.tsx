@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CartModal } from "@/app/_components/catalog/cart-modal";
 import { CatalogHeader } from "@/app/_components/catalog/catalog-header";
 import {
@@ -35,12 +35,126 @@ export function CatalogPage() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Jersey | null>(null);
   const [mobileView, setMobileView] = useState<CatalogMobileView>("blocks");
+  const [isExitPopupOpen, setIsExitPopupOpen] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
+  const hasShownExitPopupRef = useRef(false);
 
   const teams = [...new Set(catalog.map((product) => product.team))];
   const filteredProducts = catalog.filter((product) =>
     matchesFilters(product, filters)
   );
   const cartCount = getCartCount(cartItems);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const wasShown = window.sessionStorage.getItem("exit-discount-popup");
+
+    if (wasShown === "shown") {
+      hasShownExitPopupRef.current = true;
+    }
+  }, []);
+
+  useEffect(() => {
+    const registerInteraction = () => setHasInteracted(true);
+
+    window.addEventListener("pointerdown", registerInteraction, {
+      passive: true,
+      once: true,
+    });
+    window.addEventListener("keydown", registerInteraction, { once: true });
+
+    return () => {
+      window.removeEventListener("pointerdown", registerInteraction);
+      window.removeEventListener("keydown", registerInteraction);
+    };
+  }, []);
+
+  useEffect(() => {
+    const onMouseOut = (event: MouseEvent) => {
+      if (window.innerWidth < 1024) {
+        return;
+      }
+
+      if (hasShownExitPopupRef.current) {
+        return;
+      }
+
+      const relatedTarget = event.relatedTarget as Node | null;
+
+      if (relatedTarget) {
+        return;
+      }
+
+      if (event.clientY > 16) {
+        return;
+      }
+
+      hasShownExitPopupRef.current = true;
+      window.sessionStorage.setItem("exit-discount-popup", "shown");
+      setIsExitPopupOpen(true);
+    };
+
+    document.addEventListener("mouseout", onMouseOut);
+
+    return () => document.removeEventListener("mouseout", onMouseOut);
+  }, []);
+
+  useEffect(() => {
+    if (!isExitPopupOpen || !hasInteracted) {
+      return;
+    }
+
+    const AudioContextCtor =
+      window.AudioContext ||
+      (
+        window as typeof window & {
+          webkitAudioContext?: typeof AudioContext;
+        }
+      ).webkitAudioContext;
+
+    if (!AudioContextCtor) {
+      return;
+    }
+
+    try {
+      const context = new AudioContextCtor();
+      const oscillator = context.createOscillator();
+      const gainNode = context.createGain();
+
+      oscillator.type = "triangle";
+      oscillator.frequency.setValueAtTime(920, context.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(
+        1320,
+        context.currentTime + 0.14
+      );
+      oscillator.frequency.exponentialRampToValueAtTime(
+        980,
+        context.currentTime + 0.28
+      );
+
+      gainNode.gain.setValueAtTime(0.0001, context.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.08, context.currentTime + 0.02);
+      gainNode.gain.exponentialRampToValueAtTime(
+        0.0001,
+        context.currentTime + 0.34
+      );
+
+      oscillator.connect(gainNode);
+      gainNode.connect(context.destination);
+
+      oscillator.start();
+      oscillator.stop(context.currentTime + 0.36);
+
+      oscillator.onended = () => {
+        void context.close();
+      };
+    } catch {
+      // Ignore audio failures silently; popup still works without sound.
+    }
+  }, [hasInteracted, isExitPopupOpen]);
 
   const handleChange = (field: keyof CatalogFilterState, value: string) => {
     setFilters((current) => ({
@@ -139,6 +253,40 @@ export function CatalogPage() {
         onClose={() => setSelectedProduct(null)}
         onAddToCart={handleAddFromModal}
       />
+
+      {isExitPopupOpen ? (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-[rgba(4,8,6,0.72)] px-4 backdrop-blur-sm">
+          <div
+            className="absolute inset-0"
+            aria-hidden="true"
+            onClick={() => setIsExitPopupOpen(false)}
+          />
+          <div className="relative flex w-full max-w-md flex-col items-center gap-4 rounded-[1.5rem] border border-[#f3d27a]/35 bg-[linear-gradient(180deg,#b01a18_0%,#8f1110_45%,#730c0c_100%)] px-6 py-7 text-center shadow-[0_28px_80px_rgba(0,0,0,0.45)]">
+            <div className="absolute inset-0 rounded-[1.5rem] border border-white/10" />
+            <span className="rounded-full border border-white/20 bg-black/10 px-3 py-1 text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#ffe9b8]">
+              Oferta Especial
+            </span>
+            <div className="relative h-16 w-12 rounded-[0.85rem] border border-[#ffd77f]/40 bg-[linear-gradient(180deg,#ff4740_0%,#cf1714_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.26)]" />
+            <div className="flex flex-col gap-2">
+              <h3 className="font-heading text-2xl font-semibold tracking-[-0.04em] text-white sm:text-[2rem]">
+                Compre sua camisa agora com desconto!
+              </h3>
+              <p className="text-sm leading-6 text-white/84">
+                Aproveite antes de sair e garanta sua camisa com uma oferta
+                especial por tempo limitado.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setIsExitPopupOpen(false)}
+              className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full border border-white/18 bg-black/10 text-lg font-bold text-white transition hover:bg-black/20"
+              aria-label="Fechar popup"
+            >
+              X
+            </button>
+          </div>
+        </div>
+      ) : null}
     </>
   );
 }
