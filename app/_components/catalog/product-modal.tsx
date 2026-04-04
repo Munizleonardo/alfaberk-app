@@ -43,7 +43,7 @@ export function ProductModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(40,35,20,0.58)] px-3 py-3 backdrop-blur-sm sm:px-4 sm:py-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(3,6,5,0.72)] px-3 py-3 backdrop-blur-sm sm:px-4 sm:py-6">
       <div
         className="absolute inset-0 cursor-pointer"
         aria-hidden="true"
@@ -72,7 +72,7 @@ function ModalContent({
   const [activeImage, setActiveImage] = useState(0);
 
   return (
-    <div className="relative z-10 flex max-h-[94vh] w-full max-w-5xl flex-col gap-5 overflow-y-auto rounded-[1.5rem] border border-white/75 bg-[color:color-mix(in_oklab,var(--card)_88%,white)] p-4 shadow-[0_30px_100px_rgba(60,50,25,0.2)] sm:gap-6 sm:rounded-[2rem] sm:p-5 md:p-8">
+    <div className="relative z-10 flex max-h-[94vh] w-full max-w-5xl flex-col gap-5 overflow-y-auto rounded-[1.5rem] border border-[rgba(255,255,255,0.08)] bg-[linear-gradient(180deg,rgba(18,22,20,0.98),rgba(12,15,13,0.99))] p-4 shadow-[0_30px_100px_rgba(0,0,0,0.4)] sm:gap-6 sm:rounded-[2rem] sm:p-5 md:p-8">
       <div className="flex items-start justify-between gap-3 sm:gap-4">
         <div className="flex min-w-0 flex-col gap-2">
           {product.badge ? (
@@ -121,8 +121,8 @@ function ModalContent({
                 onClick={() => setActiveImage(index)}
                 className={`flex aspect-square w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl border p-1.5 transition sm:h-24 sm:w-24 sm:rounded-2xl sm:p-2 ${
                   activeImage === index
-                    ? "border-[color:var(--primary)] bg-[color:color-mix(in_oklab,var(--accent)_55%,white)]"
-                    : "border-[color:var(--border)] bg-[color:var(--muted)]"
+                    ? "border-[color:var(--primary)] bg-[rgba(33,184,101,0.16)]"
+                    : "border-[color:var(--border)] bg-[rgba(255,255,255,0.04)]"
                 }`}
               >
                 <Image
@@ -140,13 +140,13 @@ function ModalContent({
 
         <div className="flex flex-1 flex-col gap-5">
           <div className="flex flex-wrap gap-3">
-            <span className="rounded-full bg-[color:var(--foreground)] px-4 py-2 text-sm font-semibold text-white">
+            <span className="rounded-full bg-[color:var(--primary)] px-4 py-2 text-sm font-semibold text-[color:var(--primary-foreground)]">
               {product.team}
             </span>
-            <span className="rounded-full border border-[color:var(--border)] bg-[color:var(--secondary)] px-4 py-2 text-sm font-semibold text-[color:var(--secondary-foreground)]">
+            <span className="rounded-full border border-[color:var(--border)] bg-[rgba(255,255,255,0.04)] px-4 py-2 text-sm font-semibold text-[color:var(--secondary-foreground)]">
               {product.category}
             </span>
-            <span className="rounded-full bg-[color:var(--accent)] px-4 py-2 text-sm font-semibold text-[color:var(--accent-foreground)]">
+            <span className="rounded-full bg-[rgba(255,255,255,0.06)] px-4 py-2 text-sm font-semibold text-[color:var(--foreground)]">
               Modelo {product.model}
             </span>
           </div>
@@ -155,15 +155,15 @@ function ModalContent({
             {product.fullDescription}
           </p>
 
-          <div className="flex flex-col gap-3 rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--muted)] p-5">
+          <div className="flex flex-col gap-3 rounded-[1.5rem] border border-[color:var(--border)] bg-[rgba(255,255,255,0.04)] p-5">
             <span className="text-xs font-bold uppercase tracking-[0.24em] text-[color:var(--muted-foreground)]">
-              Tamanhos disponiveis
+              Tamanhos disponíveis
             </span>
             <div className="flex flex-wrap gap-2">
               {product.sizes.map((size) => (
                 <span
                   key={size}
-                  className="rounded-full border border-[color:var(--border)] bg-white px-4 py-2 text-sm font-semibold text-[color:var(--foreground)]"
+                  className="rounded-full border border-[color:var(--border)] bg-[rgba(255,255,255,0.06)] px-4 py-2 text-sm font-semibold text-[color:var(--foreground)]"
                 >
                   {size}
                 </span>
@@ -171,7 +171,7 @@ function ModalContent({
             </div>
           </div>
 
-          <div className="flex flex-col gap-2 rounded-[1.5rem] border border-[color:var(--border)] bg-white/70 p-4 sm:p-5">
+          <div className="flex flex-col gap-2 rounded-[1.5rem] border border-[color:var(--border)] bg-[rgba(255,255,255,0.03)] p-4 sm:p-5">
             <span className="text-xs font-bold uppercase tracking-[0.24em] text-[color:var(--muted-foreground)]">
               Valor
             </span>
@@ -187,7 +187,7 @@ function ModalContent({
             <Button
               type="button"
               onClick={() => onAddToCart(product)}
-              className="h-12 flex-1 rounded-full bg-[color:var(--foreground)] text-white hover:bg-[color:var(--primary)]"
+              className="h-12 flex-1 rounded-full bg-[color:var(--primary)] text-[color:var(--primary-foreground)] hover:brightness-110"
             >
               <ShoppingCart />
               Adicionar ao Carrinho

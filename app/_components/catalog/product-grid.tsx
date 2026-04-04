@@ -14,7 +14,7 @@ export function ProductGrid({
 }: ProductGridProps) {
   if (!products.length) {
     return (
-      <div className="flex min-h-[180px] w-full flex-col items-center justify-center gap-3 rounded-[1rem] border border-dashed border-[color:var(--border)] bg-white/72 px-4 py-5 text-center">
+      <div className="flex min-h-[180px] w-full flex-col items-center justify-center gap-3 rounded-[1rem] border border-dashed border-[color:var(--border)] bg-[rgba(18,22,20,0.92)] px-4 py-5 text-center">
         <span className="rounded-full bg-[color:var(--accent)] px-4 py-2 text-sm font-bold uppercase tracking-[0.2em] text-[color:var(--accent-foreground)]">
           Nenhum item encontrado
         </span>
@@ -22,8 +22,8 @@ export function ProductGrid({
           Ajuste os filtros para encontrar outras camisas.
         </h3>
         <p className="max-w-xl text-sm leading-6 text-[color:var(--muted-foreground)]">
-          Tente ampliar a faixa de preco, trocar o tamanho ou voltar para todos
-          os modelos disponiveis.
+          Tente ampliar a faixa de preço, trocar o tamanho ou voltar para todos
+          os modelos disponíveis.
         </p>
       </div>
     );
@@ -32,9 +32,10 @@ export function ProductGrid({
   return (
     <div className="flex flex-col gap-2.5">
       <div className="grid gap-2.5 md:grid-cols-2 md:gap-3.5 xl:grid-cols-3">
-        {products.map((product) => (
+        {products.map((product, index) => (
           <div key={product.id} className="flex w-full">
             <ProductCard
+              index={index}
               product={product}
               onOpen={onOpen}
               onAddToCart={onAddToCart}

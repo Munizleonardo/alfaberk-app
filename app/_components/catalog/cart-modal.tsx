@@ -60,14 +60,14 @@ export function CartModal({
   const total = getCartTotal(items);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(40,35,20,0.58)] px-3 py-3 backdrop-blur-sm sm:px-4 sm:py-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(3,6,5,0.72)] px-3 py-3 backdrop-blur-sm sm:px-4 sm:py-6">
       <div
         className="absolute inset-0 cursor-pointer"
         aria-hidden="true"
         onClick={handleClose}
       />
 
-      <div className="relative z-10 flex max-h-[94vh] w-full max-w-3xl flex-col gap-5 overflow-y-auto rounded-[1.5rem] border border-white/75 bg-[color:color-mix(in_oklab,var(--card)_88%,white)] p-4 shadow-[0_30px_100px_rgba(60,50,25,0.2)] sm:gap-6 sm:rounded-[2rem] sm:p-5 md:p-8">
+      <div className="relative z-10 flex max-h-[94vh] w-full max-w-3xl flex-col gap-5 overflow-y-auto rounded-[1.5rem] border border-[rgba(255,255,255,0.08)] bg-[linear-gradient(180deg,rgba(18,22,20,0.98),rgba(12,15,13,0.99))] p-4 shadow-[0_30px_100px_rgba(0,0,0,0.4)] sm:gap-6 sm:rounded-[2rem] sm:p-5 md:p-8">
         <div className="flex items-start justify-between gap-3 sm:gap-4">
           <div className="flex min-w-0 items-center gap-3">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[color:var(--accent)] text-[color:var(--accent-foreground)] sm:h-12 sm:w-12">
@@ -94,7 +94,7 @@ export function CartModal({
         </div>
 
         {!items.length ? (
-          <div className="flex min-h-[220px] flex-col items-center justify-center gap-4 rounded-[1.4rem] border border-dashed border-[color:var(--border)] bg-white/60 px-4 py-8 text-center sm:min-h-[260px] sm:rounded-[1.75rem] sm:px-6 sm:py-10">
+          <div className="flex min-h-[220px] flex-col items-center justify-center gap-4 rounded-[1.4rem] border border-dashed border-[color:var(--border)] bg-[rgba(255,255,255,0.03)] px-4 py-8 text-center sm:min-h-[260px] sm:rounded-[1.75rem] sm:px-6 sm:py-10">
             <span className="rounded-full bg-[color:var(--accent)] px-4 py-2 text-sm font-bold uppercase tracking-[0.2em] text-[color:var(--accent-foreground)]">
               Carrinho vazio
             </span>
@@ -109,7 +109,7 @@ export function CartModal({
               {items.map((item) => (
                 <div
                   key={item.product.id}
-                  className="flex flex-col gap-4 rounded-[1.3rem] border border-[color:var(--border)] bg-white/75 p-4 sm:flex-row sm:items-center sm:justify-between sm:rounded-[1.5rem]"
+                  className="flex flex-col gap-4 rounded-[1.3rem] border border-[color:var(--border)] bg-[rgba(255,255,255,0.04)] p-4 sm:flex-row sm:items-center sm:justify-between sm:rounded-[1.5rem]"
                 >
                   <div className="flex flex-col gap-2">
                     <div className="flex flex-wrap items-center gap-2">
@@ -141,7 +141,7 @@ export function CartModal({
               ))}
             </div>
 
-            <div className="flex flex-col gap-4 rounded-[1.4rem] border border-[color:var(--border)] bg-[color:var(--muted)] p-4 sm:rounded-[1.75rem] sm:p-5">
+            <div className="flex flex-col gap-4 rounded-[1.4rem] border border-[color:var(--border)] bg-[rgba(255,255,255,0.04)] p-4 sm:rounded-[1.75rem] sm:p-5">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                 <div className="flex flex-col gap-1">
                   <span className="text-xs font-bold uppercase tracking-[0.24em] text-[color:var(--muted-foreground)]">
@@ -155,7 +155,7 @@ export function CartModal({
                 <Button
                   type="button"
                   onClick={() => setShowRegionalContacts(true)}
-                  className="h-12 w-full rounded-full bg-[color:var(--foreground)] px-6 text-white hover:bg-[color:var(--primary)] sm:w-auto"
+                  className="h-12 w-full rounded-full bg-[color:var(--primary)] px-6 text-[color:var(--primary-foreground)] hover:brightness-110 sm:w-auto"
                 >
                   Finalizar compra
                 </Button>
@@ -166,14 +166,14 @@ export function CartModal({
                   {regionalContacts.map((contact) => (
                     <div
                       key={contact.id}
-                      className="flex flex-col gap-4 rounded-[1.5rem] border border-[color:var(--border)] bg-white p-5"
+                      className="flex flex-col gap-4 rounded-[1.5rem] border border-[color:var(--border)] bg-[rgba(255,255,255,0.04)] p-5"
                     >
                       <p className="text-sm leading-6 text-[color:var(--foreground)]">
                         {contact.title}
                       </p>
                       <Button
                         asChild
-                        className="h-12 rounded-full bg-[color:var(--primary)] text-white hover:bg-[color:var(--foreground)]"
+                        className="h-12 rounded-full bg-[color:var(--primary)] text-[color:var(--primary-foreground)] hover:brightness-110"
                       >
                         <a
                           href={getRegionalContactLink(contact.phone, items)}

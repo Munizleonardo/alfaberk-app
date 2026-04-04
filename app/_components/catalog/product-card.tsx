@@ -1,3 +1,7 @@
+"use client";
+
+import type { CSSProperties } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ShoppingCart } from "lucide-react";
 import { type Jersey } from "@/app/_lib/catalog";
@@ -7,6 +11,7 @@ type ProductCardProps = {
   product: Jersey;
   onOpen: (product: Jersey) => void;
   onAddToCart: (product: Jersey) => void;
+  index: number;
 };
 
 const currencyFormatter = new Intl.NumberFormat("pt-BR", {
@@ -18,9 +23,50 @@ export function ProductCard({
   product,
   onOpen,
   onAddToCart,
+  index,
 }: ProductCardProps) {
+  const [isVisible, setIsVisible] = useState(false);
+  const cardRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const node = cardRef.current;
+
+    if (!node) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) {
+          return;
+        }
+
+        setIsVisible(true);
+        observer.disconnect();
+      },
+      {
+        threshold: 0.2,
+        rootMargin: "0px 0px -8% 0px",
+      }
+    );
+
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <article className="group flex min-h-full min-w-0 flex-col gap-3 overflow-hidden rounded-[1.15rem] border border-white/80 bg-white/88 p-2.5 shadow-[0_12px_28px_rgba(90,80,45,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_44px_rgba(90,80,45,0.12)] sm:rounded-[1.45rem] sm:p-3">
+    <article
+      ref={cardRef}
+      className={`catalog-card-enter group flex min-h-full min-w-0 flex-col gap-3 overflow-hidden rounded-[1.15rem] border border-[rgba(255,255,255,0.08)] bg-[linear-gradient(180deg,rgba(18,22,20,0.96),rgba(14,17,15,0.98))] p-2.5 shadow-[0_14px_28px_rgba(0,0,0,0.25)] transition duration-300 hover:-translate-y-1 hover:border-[rgba(33,184,101,0.22)] hover:shadow-[0_22px_44px_rgba(0,0,0,0.34)] sm:rounded-[1.45rem] sm:p-3 ${
+        isVisible ? "is-visible" : ""
+      }`}
+      style={
+        {
+          "--card-delay": `${Math.min(index * 90, 360)}ms`,
+        } as CSSProperties
+      }
+    >
       <button
         type="button"
         onClick={() => onOpen(product)}
@@ -34,10 +80,10 @@ export function ProductCard({
         >
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.26),transparent_36%)]" />
           <div className="absolute inset-x-2.5 top-2.5 z-10 flex items-center justify-between">
-            <span className="rounded-full bg-white/80 px-2 py-1 text-[0.54rem] font-bold uppercase tracking-[0.16em] text-[color:var(--foreground)] backdrop-blur">
+            <span className="rounded-full bg-[color:var(--primary)] px-2 py-1 text-[0.54rem] font-bold uppercase tracking-[0.16em] text-[color:var(--primary-foreground)] backdrop-blur">
               {product.team}
             </span>
-            <span className="rounded-full border border-white/40 bg-black/10 px-2 py-1 text-[0.54rem] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur">
+            <span className="rounded-full border border-white/18 bg-black/28 px-2 py-1 text-[0.54rem] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur">
               {product.model}
             </span>
           </div>
@@ -63,7 +109,7 @@ export function ProductCard({
                 {product.name}
               </h3>
             </div>
-            <span className="shrink-0 rounded-full border border-[color:var(--border)] bg-[color:var(--secondary)] px-2 py-1 text-[0.62rem] font-bold text-[color:var(--secondary-foreground)]">
+            <span className="shrink-0 rounded-full border border-[color:var(--border)] bg-[rgba(255,255,255,0.04)] px-2 py-1 text-[0.62rem] font-bold text-[color:var(--secondary-foreground)]">
               {product.category}
             </span>
           </div>
@@ -76,7 +122,7 @@ export function ProductCard({
             {product.sizes.map((size) => (
               <span
                 key={size}
-                className="rounded-full border border-[color:var(--border)] bg-[color:var(--muted)] px-2 py-1 text-[0.62rem] font-semibold text-[color:var(--secondary-foreground)]"
+                className="rounded-full border border-[color:var(--border)] bg-[rgba(255,255,255,0.04)] px-2 py-1 text-[0.62rem] font-semibold text-[color:var(--secondary-foreground)]"
               >
                 {size}
               </span>
@@ -97,7 +143,7 @@ export function ProductCard({
         <Button
           type="button"
           onClick={() => onAddToCart(product)}
-          className="h-auto min-h-9 w-full rounded-full bg-[color:var(--foreground)] px-3 py-2 text-center text-[0.76rem] leading-tight whitespace-normal text-white hover:bg-[color:var(--primary)] sm:w-auto sm:px-4"
+          className="h-auto min-h-9 w-full rounded-full bg-[color:var(--primary)] px-3 py-2 text-center text-[0.76rem] leading-tight whitespace-normal text-[color:var(--primary-foreground)] hover:brightness-110 sm:w-auto sm:px-4"
         >
           <ShoppingCart />
           Adicionar ao Carrinho

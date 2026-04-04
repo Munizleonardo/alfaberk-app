@@ -50,7 +50,7 @@ export function CatalogHeader({ cartCount, onOpenCart }: CatalogHeaderProps) {
         </div>
 
         <p className="mt-2.5 max-w-lg px-2 text-balance text-[0.78rem] leading-5 text-[#fff3df]/88 sm:mt-3.5 sm:text-[0.9rem] sm:leading-6 md:text-[0.98rem]">
-          Camisas selecionadas com apresentacao mais refinada, navegacao leve e
+          Camisas selecionadas com apresentação mais refinada, navegação leve e
           um visual inspirado no universo do futebol.
         </p>
       </div>

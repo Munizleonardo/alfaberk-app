@@ -77,9 +77,8 @@ export function CatalogPage() {
     <>
       <main className="relative flex min-h-screen flex-col overflow-hidden px-2 py-2 sm:px-3 sm:py-3 md:px-5 md:py-5">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-[-3.5rem] top-12 h-28 w-28 rounded-full bg-[rgba(255,128,72,0.24)] blur-3xl sm:h-44 sm:w-44" />
-          <div className="absolute right-[-2.5rem] top-72 h-30 w-30 rounded-full bg-[rgba(34,197,94,0.2)] blur-3xl sm:h-52 sm:w-52" />
-          <div className="absolute bottom-10 left-1/3 h-24 w-24 rounded-full bg-[rgba(250,204,21,0.18)] blur-3xl sm:h-40 sm:w-40" />
+          <div className="absolute left-[-3rem] top-16 h-24 w-24 rounded-full bg-[rgba(33,184,101,0.08)] blur-3xl sm:h-36 sm:w-36" />
+          <div className="absolute right-[-2rem] top-80 h-24 w-24 rounded-full bg-[rgba(255,255,255,0.04)] blur-3xl sm:h-36 sm:w-36" />
         </div>
 
         <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-3 sm:gap-4 md:gap-5">
