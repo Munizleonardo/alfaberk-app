@@ -86,7 +86,7 @@ export const catalog: Jersey[] = [
   },
   {
     id: "brasil-2026-retro",
-    name: "Camisa Brasil - Retrô",
+    name: "Camisa Brasil Corteiz Home",
     team: "Brasil",
     category: "Seleção",
     model: "Retro",
@@ -127,6 +127,31 @@ export const catalog: Jersey[] = [
       "/img/brasil/retro94/brasil02.webp", 
       "/img/brasil/retro94/03.webp", 
       "/img/brasil/retro94/04.webp", 
+    ],
+    colors: {
+      primary: "#14532d",
+      secondary: "#facc15",
+      accent: "#2563eb",
+    },
+  },
+  {
+    id: "brasil-2026-retro-azul",
+    name: "Camisa Brasil Corteiz Away",
+    team: "Brasil",
+    category: "Seleção",
+    model: "Retro",
+    price: 199.9,
+    sizes: ["P", "M", "G", "GG"],
+    badge: "",
+    shortDescription:
+      "Modelagem premium com tecido respirável e escudo aplicado em relevo.",
+    fullDescription:
+      "Versão inspirada no uniforme principal da Seleção, com acabamento premium, recortes anatomicos e tecido leve para uso casual ou em dia de jogo.",
+    images: [
+      "/img/brasil/retroazul/brasil01.webp", 
+      "/img/brasil/retroazul/brasil02.webp",
+      "/img/brasil/retroazul/brasil03.webp",
+      "/img/brasil/retroazul/brasil04.webp",
     ],
     colors: {
       primary: "#14532d",
