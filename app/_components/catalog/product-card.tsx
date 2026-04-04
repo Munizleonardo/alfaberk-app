@@ -176,7 +176,7 @@ export function ProductCard({
           <select
             value={selectedSize}
             onChange={(event) => setSelectedSize(event.target.value as JerseySize)}
-            className="w-full rounded-lg border border-[color:var(--border)] bg-black px-3 py-2 text-[0.78rem] text-[color:var(--foreground)] outline-none [color-scheme:dark] focus:border-[color:var(--primary)]"
+            className="w-full rounded-lg border border-[color:var(--border)] bg-[rgba(255,255,255,0.04)] px-3 py-2 text-[0.78rem] text-[color:var(--foreground)] outline-none [color-scheme:dark] [&>option]:bg-[rgb(24,29,27)] [&>option]:text-[color:var(--foreground)] focus:border-[color:var(--primary)]"
           >
             {product.sizes.map((size) => (
               <option key={size} value={size}>

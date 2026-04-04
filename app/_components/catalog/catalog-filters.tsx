@@ -28,7 +28,7 @@ const filterLabelClassName =
   "text-[0.68rem] font-bold uppercase tracking-[0.26em] text-[color:var(--muted-foreground)]";
 
 const filterInputClassName =
-  "w-full rounded-xl border border-[color:var(--border)] bg-black text-[color:var(--foreground)] px-3 py-2.5 text-[0.84rem] outline-none transition [color-scheme:dark] placeholder:text-[color:var(--muted-foreground)] focus:border-[color:var(--primary)] focus:ring-4 focus:ring-[color:color-mix(in_oklab,var(--primary)_18%,transparent)]";
+  "w-full rounded-xl border border-[color:var(--border)] bg-[rgba(255,255,255,0.04)] text-[color:var(--foreground)] px-3 py-2.5 text-[0.84rem] outline-none transition [color-scheme:dark] [&>option]:bg-[rgb(24,29,27)] [&>option]:text-[color:var(--foreground)] placeholder:text-[color:var(--muted-foreground)] focus:border-[color:var(--primary)] focus:ring-4 focus:ring-[color:color-mix(in_oklab,var(--primary)_18%,transparent)]";
 
 export function CatalogFilters({
   filters,
