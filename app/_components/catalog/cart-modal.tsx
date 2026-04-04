@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
+import { Minus, Plus, ShoppingBag } from "lucide-react";
 import {
   getCartTotal,
   getRegionalContactLink,
@@ -15,6 +15,7 @@ type CartModalProps = {
   isOpen: boolean;
   items: CartItem[];
   onClose: () => void;
+  onClearCart: () => void;
   onUpdateItemQuantity: (
     productId: string,
     size: JerseySize,
@@ -31,6 +32,7 @@ export function CartModal({
   isOpen,
   items,
   onClose,
+  onClearCart,
   onUpdateItemQuantity,
 }: CartModalProps) {
   const [showRegionalContacts, setShowRegionalContacts] = useState(false);
@@ -167,18 +169,6 @@ export function CartModal({
                         <Plus className="size-4" />
                       </button>
                     </div>
-
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() =>
-                        onUpdateItemQuantity(item.product.id, item.size, 0)
-                      }
-                      className="h-11 w-full rounded-full px-4 sm:w-auto"
-                    >
-                      <Trash2 />
-                      Excluir produto
-                    </Button>
                   </div>
                 </div>
               ))}
@@ -195,13 +185,26 @@ export function CartModal({
                   </strong>
                 </div>
 
-                <Button
-                  type="button"
-                  onClick={() => setShowRegionalContacts(true)}
-                  className="h-12 w-full rounded-full bg-[color:var(--primary)] px-6 text-[color:var(--primary-foreground)] hover:brightness-110 sm:w-auto"
-                >
-                  Finalizar compra
-                </Button>
+                <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => {
+                      setShowRegionalContacts(false);
+                      onClearCart();
+                    }}
+                    className="h-12 w-full rounded-full px-6 sm:w-auto"
+                  >
+                    Limpar carrinho
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={() => setShowRegionalContacts(true)}
+                    className="h-12 w-full rounded-full bg-[color:var(--primary)] px-6 text-[color:var(--primary-foreground)] hover:brightness-110 sm:w-auto"
+                  >
+                    Finalizar compra
+                  </Button>
+                </div>
               </div>
 
               {shouldShowRegionalContacts ? (

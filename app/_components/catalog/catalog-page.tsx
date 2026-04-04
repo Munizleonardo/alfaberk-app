@@ -207,6 +207,10 @@ export function CatalogPage() {
     setSelectedProduct(null);
   };
 
+  const handleClearCart = () => {
+    setCartItems([]);
+  };
+
   return (
     <>
       <main className="relative flex min-h-screen flex-col overflow-hidden px-2 py-2 sm:px-3 sm:py-3 md:px-5 md:py-5">
@@ -245,6 +249,7 @@ export function CatalogPage() {
         isOpen={isCartOpen}
         items={cartItems}
         onClose={() => setIsCartOpen(false)}
+        onClearCart={handleClearCart}
         onUpdateItemQuantity={handleUpdateCartItemQuantity}
       />
 

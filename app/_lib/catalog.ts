@@ -74,10 +74,10 @@ export const catalog: Jersey[] = [
     fullDescription:
       "Camisa away com tecido macio, gola reforçada e acabamento pensado para destacar o visual da torcida com muito conforto no uso diário.",
       images: [
-        "/img/brasil/jogador/brasil04.webp", 
-        "/img/brasil/jogador/brasil02.webp", 
-        "/img/brasil/jogador/brasil03.webp", 
-        "/img/brasil/jogador/brasil01.webp", 
+        "/img/brasil/jogador/01.webp", 
+        "/img/brasil/jogador/02.webp", 
+        "/img/brasil/jogador/03.webp", 
+        "/img/brasil/jogador/04.webp", 
       ],
     colors: {
       primary: "#0f172a",
@@ -105,9 +105,9 @@ export const catalog: Jersey[] = [
         "/img/brasil/retro/brasil04.webp", 
       ],
     colors: {
-      primary: "#111827",
-      secondary: "#dc2626",
-      accent: "#f59e0b",
+      primary: "#14532d",
+      secondary: "#facc15",
+      accent: "#2563eb",
     },
   },
   {
