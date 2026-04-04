@@ -36,17 +36,17 @@ const currencyFormatter = new Intl.NumberFormat("pt-BR", {
 export const catalog: Jersey[] = [
   {
     id: "brasil-2026-torcedor",
-    name: "Camisa Brasil 2026 - Torcedor",
+    name: "Camisa Brasil 2026 Home",
     team: "Brasil",
-    category: "Selecao",
+    category: "Seleção",
     model: "Torcedor",
-    price: 329.9,
+    price: 149.99,
     sizes: ["P", "M", "G", "GG"],
     badge: "",
     shortDescription:
-      "Modelagem premium com tecido respiravel e escudo aplicado em relevo.",
+      "Modelagem premium com tecido respirável e escudo aplicado em relevo.",
     fullDescription:
-      "Versao inspirada no uniforme principal da Selecao, com acabamento premium, recortes anatomicos e tecido leve para uso casual ou em dia de jogo.",
+      "Versão inspirada no uniforme principal da Seleção, com acabamento premium, recortes anatomicos e tecido leve para uso casual ou em dia de jogo.",
     images: [
       "/img/brasil/torcedor/brasil01.webp", 
       "/img/brasil/torcedor/brasil02.webp",
@@ -61,17 +61,17 @@ export const catalog: Jersey[] = [
   },
   {
     id: "brasil-2026-jogador",
-    name: "Camisa Brasil 2026 - Jogador",
+    name: "Camisa Brasil 2026 Away",
     team: "Brasil",
-    category: "Selecao",
+    category: "Seleção",
     model: "Jogador",
-    price: 279.9,
+    price: 179.90,
     sizes: ["M", "G", "GG"],
     badge: "",
     shortDescription:
-      "Visual elegante em azul escuro com detalhes metalicos e caimento confortavel.",
+      "Visual elegante em azul escuro com detalhes metálicos e caimento confortável.",
     fullDescription:
-      "Camisa away com tecido macio, gola reforcada e acabamento pensado para destacar o visual da torcida com muito conforto no uso diario.",
+      "Camisa away com tecido macio, gola reforçada e acabamento pensado para destacar o visual da torcida com muito conforto no uso diário.",
       images: [
         "/img/brasil/jogador/brasil04.webp", 
         "/img/brasil/jogador/brasil02.webp", 
@@ -86,17 +86,17 @@ export const catalog: Jersey[] = [
   },
   {
     id: "brasil-2026-retro",
-    name: "Camisa Brasil 2026 - Retrô",
+    name: "Camisa Brasil - Retrô",
     team: "Brasil",
-    category: "Selecao",
+    category: "Seleção",
     model: "Retro",
-    price: 249.9,
+    price: 199.9,
     sizes: ["P", "M", "G"],
-    badge: "oferta relampago",
+    badge: "",
     shortDescription:
-      "Tradicional com linhas marcantes e excelente presenca visual.",
+      "Tradicional com linhas marcantes e excelente presença visual.",
     fullDescription:
-      "Modelo retrô com toque macio, cores vibrantes e composicao leve para quem quer vestir o manto no estadio ou no dia a dia.",
+      "Modelo retrô com toque macio, cores vibrantes e composição leve para quem quer vestir o manto no estádio ou no dia a dia.",
       images: [
         "/img/brasil/retro/brasil01.webp",  
         "/img/brasil/retro/brasil02.webp", 
