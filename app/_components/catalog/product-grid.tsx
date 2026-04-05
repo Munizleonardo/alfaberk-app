@@ -1,14 +1,14 @@
 import { LayoutGrid, Rows3 } from "lucide-react";
 import type { CatalogMobileView } from "@/app/_components/catalog/catalog-page";
-import type { Jersey, JerseySize } from "@/app/_lib/catalog";
+import type { Jersey, JerseyFit, JerseySize } from "@/app/_lib/catalog";
 import { ProductCard } from "@/app/_components/catalog/product-card";
 
 type ProductGridProps = {
   mobileView: CatalogMobileView;
   onMobileViewChange: (view: CatalogMobileView) => void;
   products: Jersey[];
-  onOpen: (product: Jersey) => void;
-  onAddToCart: (product: Jersey, size: JerseySize) => void;
+  onOpen: (product: Jersey, fit: JerseyFit) => void;
+  onAddToCart: (product: Jersey, size: JerseySize, fit: JerseyFit) => void;
 };
 
 export function ProductGrid({
@@ -71,12 +71,12 @@ export function ProductGrid({
       <div
         className={`grid ${
           mobileView === "grid"
-            ? "grid-cols-2 gap-2"
+            ? "auto-rows-fr grid-cols-2 gap-2"
             : "gap-2.5"
         } md:grid-cols-2 md:gap-3.5 xl:grid-cols-3`}
       >
         {products.map((product, index) => (
-          <div key={product.id} className="flex w-full">
+          <div key={product.id} className="flex h-full w-full">
             <ProductCard
               index={index}
               mobileView={mobileView}

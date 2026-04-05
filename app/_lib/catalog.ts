@@ -4,6 +4,8 @@ export type JerseyModel = "Torcedor" | "Jogador" | "Retro";
 
 export type JerseySize = "P" | "M" | "G" | "GG";
 
+export type JerseyFit = "Masculina" | "Feminina";
+
 export type Jersey = {
   id: string;
   name: string;
@@ -15,7 +17,7 @@ export type Jersey = {
   badge: string;
   shortDescription: string;
   fullDescription: string;
-  images: string[];
+  images: Record<JerseyFit, string[]>;
   colors: {
     primary: string;
     secondary: string;
@@ -26,6 +28,7 @@ export type Jersey = {
 export type CartItem = {
   product: Jersey;
   size: JerseySize;
+  fit: JerseyFit;
   quantity: number;
 };
 
@@ -41,19 +44,22 @@ export const catalog: Jersey[] = [
     team: "Brasil",
     category: "Seleção",
     model: "Torcedor",
-    price: 149.99,
+    price: 149.90,
     sizes: ["P", "M", "G", "GG"],
     badge: "",
     shortDescription:
       "Modelagem premium com tecido respirável e escudo aplicado em relevo.",
     fullDescription:
       "Versão inspirada no uniforme principal da Seleção, com acabamento premium, recortes anatomicos e tecido leve para uso casual ou em dia de jogo.",
-    images: [
-      "/img/brasil/torcedor/brasil01.webp", 
-      "/img/brasil/torcedor/brasil02.webp",
-      "/img/brasil/torcedor/brasil03.webp",
-      "/img/brasil/torcedor/brasil04.webp",
-    ],
+    images: {
+      Masculina: [
+        "/img/brasil/torcedor/home/brasil01.webp",
+        "/img/brasil/torcedor/home/brasil02.webp",
+        "/img/brasil/torcedor/home/brasil03.webp",
+        "/img/brasil/torcedor/home/brasil04.webp",
+      ],
+      Feminina: [],
+    },
     colors: {
       primary: "#14532d",
       secondary: "#facc15",
@@ -61,7 +67,36 @@ export const catalog: Jersey[] = [
     },
   },
   {
-    id: "brasil-2026-jogador",
+    id: "brasil-2026-torcedor-away",
+    name: "Camisa Brasil 2026 Away",
+    team: "Brasil",
+    category: "Seleção",
+    model: "Torcedor",
+    price: 149.90,
+    sizes: ["M", "G", "GG"],
+    badge: "",
+    shortDescription:
+      "Visual elegante em azul escuro com detalhes metálicos e caimento confortável.",
+    fullDescription:
+      "Camisa away com tecido macio, gola reforçada e acabamento pensado para destacar o visual da torcida com muito conforto no uso diário.",
+      images: {
+        Masculina: [
+          "/img/brasil/torcedor/away/brasil01.webp",
+          "/img/brasil/torcedor/away/brasil02.webp",
+          "/img/brasil/torcedor/away/brasil03.webp",
+          "/img/brasil/torcedor/away/brasil04.webp",
+          "/img/brasil/torcedor/away/brasil05.webp",
+        ],
+        Feminina: [],
+      },
+    colors: {
+      primary: "#0f172a",
+      secondary: "#38bdf8",
+      accent: "#e2e8f0",
+    },
+  },
+  {
+    id: "brasil-2026-jogador-away",
     name: "Camisa Brasil 2026 Away",
     team: "Brasil",
     category: "Seleção",
@@ -73,16 +108,47 @@ export const catalog: Jersey[] = [
       "Visual elegante em azul escuro com detalhes metálicos e caimento confortável.",
     fullDescription:
       "Camisa away com tecido macio, gola reforçada e acabamento pensado para destacar o visual da torcida com muito conforto no uso diário.",
-      images: [
-        "/img/brasil/jogador/01.webp", 
-        "/img/brasil/jogador/02.webp", 
-        "/img/brasil/jogador/03.webp", 
-        "/img/brasil/jogador/04.webp", 
-      ],
+      images: {
+        Masculina: [
+          "/img/brasil/jogador/away/01.webp",
+          "/img/brasil/jogador/away/02.webp",
+          "/img/brasil/jogador/away/03.webp",
+          "/img/brasil/jogador/away/04.webp",
+        ],
+        Feminina: [],
+      },
     colors: {
       primary: "#0f172a",
       secondary: "#38bdf8",
       accent: "#e2e8f0",
+    },
+  },
+  {
+    id: "brasil-2026-jogador-home",
+    name: "Camisa Brasil 2026 Home",
+    team: "Brasil",
+    category: "Seleção",
+    model: "Jogador",
+    price: 179.9,
+    sizes: ["P", "M", "G"],
+    badge: "",
+    shortDescription:
+      "Tradicional com linhas marcantes e excelente presença visual.",
+    fullDescription:
+      "Modelo retrô com toque macio, cores vibrantes e composição leve para quem quer vestir o manto no estádio ou no dia a dia.",
+      images: {
+        Masculina: [
+          "/img/brasil/jogador/home/brasil01.webp",
+          "/img/brasil/jogador/home/brasil02.webp",
+          "/img/brasil/jogador/home/brasil03.webp",
+          "/img/brasil/jogador/home/brasil04.webp",
+        ],
+        Feminina: [],
+      },
+    colors: {
+      primary: "#14532d",
+      secondary: "#facc15",
+      accent: "#2563eb",
     },
   },
   {
@@ -98,12 +164,15 @@ export const catalog: Jersey[] = [
       "Tradicional com linhas marcantes e excelente presença visual.",
     fullDescription:
       "Modelo retrô com toque macio, cores vibrantes e composição leve para quem quer vestir o manto no estádio ou no dia a dia.",
-      images: [
-        "/img/brasil/retro/brasil01.webp",  
-        "/img/brasil/retro/brasil02.webp", 
-        "/img/brasil/retro/brasil03.webp", 
-        "/img/brasil/retro/brasil04.webp", 
-      ],
+      images: {
+        Masculina: [
+          "/img/brasil/retro/retrohome/brasil01.webp",
+          "/img/brasil/retro/retrohome/brasil02.webp",
+          "/img/brasil/retro/retrohome/brasil03.webp",
+          "/img/brasil/retro/retrohome/brasil04.webp",
+        ],
+        Feminina: [],
+      },
     colors: {
       primary: "#14532d",
       secondary: "#facc15",
@@ -123,12 +192,15 @@ export const catalog: Jersey[] = [
       "Modelagem premium com tecido respirável e escudo aplicado em relevo.",
     fullDescription:
       "Versão inspirada no uniforme principal da Seleção, com acabamento premium, recortes anatomicos e tecido leve para uso casual ou em dia de jogo.",
-    images: [
-      "/img/brasil/retro94/brasil01.webp", 
-      "/img/brasil/retro94/brasil02.webp", 
-      "/img/brasil/retro94/03.webp", 
-      "/img/brasil/retro94/04.webp", 
-    ],
+    images: {
+      Masculina: [
+        "/img/brasil/retro/retro94/brasil01.webp",
+        "/img/brasil/retro/retro94/brasil02.webp",
+        "/img/brasil/retro/retro94/03.webp",
+        "/img/brasil/retro/retro94/04.webp",
+      ],
+      Feminina: [],
+    },
     colors: {
       primary: "#14532d",
       secondary: "#facc15",
@@ -148,12 +220,15 @@ export const catalog: Jersey[] = [
       "Modelagem premium com tecido respirável e escudo aplicado em relevo.",
     fullDescription:
       "Versão inspirada no uniforme principal da Seleção, com acabamento premium, recortes anatomicos e tecido leve para uso casual ou em dia de jogo.",
-    images: [
-      "/img/brasil/retroazul/brasil01.webp", 
-      "/img/brasil/retroazul/brasil02.webp",
-      "/img/brasil/retroazul/brasil03.webp",
-      "/img/brasil/retroazul/brasil04.webp",
-    ],
+    images: {
+      Masculina: [
+        "/img/brasil/retro/retroaway/brasil01.webp",
+        "/img/brasil/retro/retroaway/brasil02.webp",
+        "/img/brasil/retro/retroaway/brasil03.webp",
+        "/img/brasil/retro/retroaway/brasil04.webp",
+      ],
+      Feminina: [],
+    },
     colors: {
       primary: "#14532d",
       secondary: "#facc15",
@@ -171,12 +246,12 @@ export const catalogFilters = {
 export const regionalContacts = [
   {
     id: "regiao-dos-lagos",
-    title: "Região: São Pedro da Aldeia, Araruama, Cabo Frio, Iguaba, Arraial",
+    title: "Região: São Pedro da Aldeia, Araruama, Cabo Frio, Iguaba e Arraial",
     phone: "5522992742063",
   },
   {
     id: "regiao-macae",
-    title: "Região: Macaé, Rio das Ostras",
+    title: "Região: Macaé e Rio das Ostras",
     phone: "5522981805018",
   },
 ] as const;
@@ -199,6 +274,13 @@ export function getWhatsAppOrderLink(product: Jersey) {
   return `https://wa.me/?text=${encodeURIComponent(buildOrderMessage(message))}`;
 }
 
+export function getImagesForFit(
+  images: Record<JerseyFit, string[]>,
+  fit: JerseyFit
+) {
+  return images[fit].length > 0 ? images[fit] : images.Masculina;
+}
+
 export function getCartTotal(items: CartItem[]) {
   return items.reduce(
     (total, item) => total + item.product.price * item.quantity,
@@ -218,6 +300,7 @@ export function getRegionalContactLink(phone: string, items: CartItem[]) {
       `${index + 1}. ${item.product.name}`,
       `Quantidade: ${item.quantity}`,
       `Tamanho: ${item.size}`,
+      `Modelagem: ${item.fit}`,
       `Modelo: ${item.product.model}`,
       `Time: ${item.product.team}`,
       `Subtotal: ${currencyFormatter.format(item.product.price * item.quantity)}`,

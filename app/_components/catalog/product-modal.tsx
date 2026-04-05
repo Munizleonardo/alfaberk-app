@@ -3,13 +3,21 @@
 import Image from "next/image";
 import { ShoppingCart } from "lucide-react";
 import { useEffect, useState } from "react";
-import { type Jersey, type JerseySize } from "@/app/_lib/catalog";
+import {
+  getImagesForFit,
+  type Jersey,
+  type JerseyFit,
+  type JerseySize,
+} from "@/app/_lib/catalog";
 import { Button } from "@/app/_components/ui/button";
 
 type ProductModalProps = {
-  product: Jersey | null;
+  product: {
+    item: Jersey;
+    fit: JerseyFit;
+  } | null;
   onClose: () => void;
-  onAddToCart: (product: Jersey, size: JerseySize) => void;
+  onAddToCart: (product: Jersey, size: JerseySize, fit: JerseyFit) => void;
 };
 
 const currencyFormatter = new Intl.NumberFormat("pt-BR", {
@@ -51,8 +59,9 @@ export function ProductModal({
       />
 
       <ModalContent
-        key={product.id}
-        product={product}
+        key={`${product.item.id}-${product.fit}`}
+        product={product.item}
+        initialFit={product.fit}
         onClose={onClose}
         onAddToCart={onAddToCart}
       />
@@ -62,15 +71,19 @@ export function ProductModal({
 
 function ModalContent({
   product,
+  initialFit,
   onClose,
   onAddToCart,
 }: {
   product: Jersey;
+  initialFit: JerseyFit;
   onClose: () => void;
-  onAddToCart: (product: Jersey, size: JerseySize) => void;
+  onAddToCart: (product: Jersey, size: JerseySize, fit: JerseyFit) => void;
 }) {
   const [activeImage, setActiveImage] = useState(0);
   const [selectedSize, setSelectedSize] = useState<JerseySize>(product.sizes[0]!);
+  const [selectedFit, setSelectedFit] = useState<JerseyFit>(initialFit);
+  const visibleImages = getImagesForFit(product.images, selectedFit);
 
   return (
     <div className="relative z-10 flex max-h-[94vh] w-full max-w-5xl flex-col gap-5 overflow-y-auto rounded-[1.5rem] border border-[rgba(255,255,255,0.08)] bg-[linear-gradient(180deg,rgba(18,22,20,0.98),rgba(12,15,13,0.99))] p-4 shadow-[0_30px_100px_rgba(0,0,0,0.4)] sm:gap-6 sm:rounded-[2rem] sm:p-5 md:p-8">
@@ -105,8 +118,12 @@ function ModalContent({
           >
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.22),transparent_38%)]" />
             <Image
-              src={product.images[activeImage]}
-              alt={`${product.name} imagem ${activeImage + 1}`}
+              src={
+                visibleImages[activeImage] ??
+                visibleImages[0] ??
+                product.images.Masculina[0]!
+              }
+              alt={`${product.name} ${selectedFit.toLowerCase()} imagem ${activeImage + 1}`}
               fill
               unoptimized
               sizes="(max-width: 1024px) 100vw, 50vw"
@@ -115,9 +132,9 @@ function ModalContent({
           </div>
 
           <div className="grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:gap-3">
-            {product.images.map((image, index) => (
+            {visibleImages.map((image, index) => (
               <button
-                key={`${product.id}-${index}`}
+                key={`${product.id}-${selectedFit}-${index}`}
                 type="button"
                 onClick={() => setActiveImage(index)}
                 className={`flex aspect-square w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl border p-1.5 transition sm:h-24 sm:w-24 sm:rounded-2xl sm:p-2 ${
@@ -158,7 +175,7 @@ function ModalContent({
 
           <div className="flex flex-col gap-3 rounded-[1.5rem] border border-[color:var(--border)] bg-[rgba(255,255,255,0.04)] p-5">
             <span className="text-xs font-bold uppercase tracking-[0.24em] text-[color:var(--muted-foreground)]">
-              Tamanhos disponíveis
+              Tamanhos disponiveis
             </span>
             <div className="flex flex-wrap gap-2">
               {product.sizes.map((size) => (
@@ -173,6 +190,32 @@ function ModalContent({
                   }`}
                 >
                   {size}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-3 rounded-[1.5rem] border border-[color:var(--border)] bg-[rgba(255,255,255,0.04)] p-5">
+            <span className="text-xs font-bold uppercase tracking-[0.24em] text-[color:var(--muted-foreground)]">
+              Modelagem
+            </span>
+            <div className="inline-flex w-full rounded-full border border-[color:var(--border)] bg-[rgba(255,255,255,0.04)] p-1">
+              {(["Masculina", "Feminina"] as const).map((fit) => (
+                <button
+                  key={fit}
+                  type="button"
+                  onClick={() => {
+                    setSelectedFit(fit);
+                    setActiveImage(0);
+                  }}
+                  className={`flex-1 rounded-full px-4 py-2 text-sm font-semibold transition ${
+                    selectedFit === fit
+                      ? "bg-[color:var(--primary)] text-[color:var(--primary-foreground)]"
+                      : "text-[color:var(--muted-foreground)]"
+                  }`}
+                  aria-pressed={selectedFit === fit}
+                >
+                  {fit}
                 </button>
               ))}
             </div>
@@ -193,7 +236,7 @@ function ModalContent({
           <div className="flex flex-col gap-3 sm:flex-row">
             <Button
               type="button"
-              onClick={() => onAddToCart(product, selectedSize)}
+              onClick={() => onAddToCart(product, selectedSize, selectedFit)}
               className="h-12 flex-1 rounded-full bg-[color:var(--primary)] text-[color:var(--primary-foreground)] hover:brightness-110"
             >
               <ShoppingCart />

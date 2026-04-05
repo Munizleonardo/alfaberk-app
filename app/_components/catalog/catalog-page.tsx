@@ -14,6 +14,7 @@ import {
   catalog,
   getCartCount,
   type CartItem,
+  type JerseyFit,
   type Jersey,
   type JerseySize,
 } from "@/app/_lib/catalog";
@@ -33,7 +34,10 @@ export function CatalogPage() {
   const [filters, setFilters] = useState<CatalogFilterState>(initialFilters);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<Jersey | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<{
+    item: Jersey;
+    fit: JerseyFit;
+  } | null>(null);
   const [mobileView, setMobileView] = useState<CatalogMobileView>("blocks");
   const [isExitPopupOpen, setIsExitPopupOpen] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
@@ -163,18 +167,27 @@ export function CatalogPage() {
     }));
   };
 
-  const handleAddToCart = (product: Jersey, size: JerseySize) => {
+  const handleAddToCart = (
+    product: Jersey,
+    size: JerseySize,
+    fit: JerseyFit
+  ) => {
     setCartItems((current) => {
       const existingItem = current.find(
-        (item) => item.product.id === product.id && item.size === size
+        (item) =>
+          item.product.id === product.id &&
+          item.size === size &&
+          item.fit === fit
       );
 
       if (!existingItem) {
-        return [...current, { product, size, quantity: 1 }];
+        return [...current, { product, size, fit, quantity: 1 }];
       }
 
       return current.map((item) =>
-        item.product.id === product.id && item.size === size
+        item.product.id === product.id &&
+        item.size === size &&
+        item.fit === fit
           ? { ...item, quantity: item.quantity + 1 }
           : item
       );
@@ -185,11 +198,16 @@ export function CatalogPage() {
   const handleUpdateCartItemQuantity = (
     productId: string,
     size: JerseySize,
+    fit: JerseyFit,
     nextQuantity: number
   ) => {
     setCartItems((current) =>
       current.flatMap((item) => {
-        if (item.product.id !== productId || item.size !== size) {
+        if (
+          item.product.id !== productId ||
+          item.size !== size ||
+          item.fit !== fit
+        ) {
           return [item];
         }
 
@@ -202,13 +220,13 @@ export function CatalogPage() {
     );
   };
 
-  const handleAddFromModal = (product: Jersey, size: JerseySize) => {
-    handleAddToCart(product, size);
+  const handleAddFromModal = (
+    product: Jersey,
+    size: JerseySize,
+    fit: JerseyFit
+  ) => {
+    handleAddToCart(product, size, fit);
     setSelectedProduct(null);
-  };
-
-  const handleClearCart = () => {
-    setCartItems([]);
   };
 
   return (
@@ -238,7 +256,7 @@ export function CatalogPage() {
               mobileView={mobileView}
               onMobileViewChange={setMobileView}
               products={filteredProducts}
-              onOpen={(product) => setSelectedProduct(product)}
+              onOpen={(product, fit) => setSelectedProduct({ item: product, fit })}
               onAddToCart={handleAddToCart}
             />
           </div>
@@ -249,7 +267,6 @@ export function CatalogPage() {
         isOpen={isCartOpen}
         items={cartItems}
         onClose={() => setIsCartOpen(false)}
-        onClearCart={handleClearCart}
         onUpdateItemQuantity={handleUpdateCartItemQuantity}
       />
 

@@ -4,13 +4,18 @@ import type { CSSProperties } from "react";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ShoppingCart } from "lucide-react";
-import { type Jersey, type JerseySize } from "@/app/_lib/catalog";
+import {
+  getImagesForFit,
+  type Jersey,
+  type JerseyFit,
+  type JerseySize,
+} from "@/app/_lib/catalog";
 import { Button } from "@/app/_components/ui/button";
 
 type ProductCardProps = {
   product: Jersey;
-  onOpen: (product: Jersey) => void;
-  onAddToCart: (product: Jersey, size: JerseySize) => void;
+  onOpen: (product: Jersey, fit: JerseyFit) => void;
+  onAddToCart: (product: Jersey, size: JerseySize, fit: JerseyFit) => void;
   index: number;
   mobileView: "blocks" | "grid";
 };
@@ -30,7 +35,9 @@ export function ProductCard({
   const isCompactMobile = mobileView === "grid";
   const [isVisible, setIsVisible] = useState(false);
   const [selectedSize, setSelectedSize] = useState<JerseySize>(product.sizes[0]!);
+  const selectedFit: JerseyFit = "Masculina";
   const cardRef = useRef<HTMLElement | null>(null);
+  const previewImages = getImagesForFit(product.images, selectedFit);
 
   useEffect(() => {
     const node = cardRef.current;
@@ -62,7 +69,7 @@ export function ProductCard({
   return (
     <article
       ref={cardRef}
-      className={`catalog-card-enter group flex min-h-full min-w-0 flex-col overflow-hidden border border-[rgba(255,255,255,0.08)] bg-[linear-gradient(180deg,rgba(18,22,20,0.96),rgba(14,17,15,0.98))] shadow-[0_14px_28px_rgba(0,0,0,0.25)] transition duration-300 hover:-translate-y-1 hover:border-[rgba(33,184,101,0.22)] hover:shadow-[0_22px_44px_rgba(0,0,0,0.34)] sm:gap-3 sm:rounded-[1.45rem] sm:p-3 ${
+      className={`catalog-card-enter group flex h-full min-h-full min-w-0 w-full flex-col overflow-hidden border border-[rgba(255,255,255,0.08)] bg-[linear-gradient(180deg,rgba(18,22,20,0.96),rgba(14,17,15,0.98))] shadow-[0_14px_28px_rgba(0,0,0,0.25)] transition duration-300 hover:-translate-y-1 hover:border-[rgba(33,184,101,0.22)] hover:shadow-[0_22px_44px_rgba(0,0,0,0.34)] sm:gap-3 sm:rounded-[1.45rem] sm:p-3 ${
         isCompactMobile
           ? "gap-2 rounded-[0.95rem] p-2 sm:rounded-[1.45rem] sm:p-3"
           : "gap-3 rounded-[1.15rem] p-2.5"
@@ -77,8 +84,8 @@ export function ProductCard({
     >
       <button
         type="button"
-        onClick={() => onOpen(product)}
-        className={`flex min-w-0 cursor-pointer flex-col text-left ${
+        onClick={() => onOpen(product, selectedFit)}
+        className={`flex min-w-0 flex-1 cursor-pointer flex-col text-left ${
           isCompactMobile ? "gap-2 sm:gap-3" : "gap-3"
         }`}
       >
@@ -106,8 +113,8 @@ export function ProductCard({
               </span>
             </div>
           <Image
-            src={product.images[0]}
-            alt={product.name}
+            src={previewImages[0] ?? product.images.Masculina[0]!}
+            alt={`${product.name} ${selectedFit.toLowerCase()}`}
             fill
             unoptimized
             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
@@ -115,7 +122,11 @@ export function ProductCard({
           />
         </div>
 
-        <div className={`flex flex-col ${isCompactMobile ? "gap-1.5 sm:gap-2" : "gap-2"}`}>
+        <div
+          className={`flex flex-1 flex-col ${
+            isCompactMobile ? "gap-1 sm:gap-2" : "gap-2"
+          }`}
+        >
           <div className="flex flex-wrap items-start justify-between gap-2">
             <div className="flex min-w-0 flex-1 flex-col gap-1">
               {product.badge ? (
@@ -130,7 +141,7 @@ export function ProductCard({
               <h3
                 className={`text-balance font-heading font-semibold tracking-[-0.04em] text-[color:var(--foreground)] ${
                   isCompactMobile
-                    ? "text-[0.8rem] leading-4 sm:text-[1.08rem]"
+                    ? "line-clamp-2 min-h-8 text-[0.8rem] leading-4 sm:min-h-0 sm:text-[1.08rem]"
                     : "text-[0.95rem] sm:text-[1.08rem]"
                 }`}
               >
@@ -169,28 +180,53 @@ export function ProductCard({
       </button>
 
       <div className={isCompactMobile ? "hidden sm:flex" : "flex"}>
-        <label className="flex w-full flex-col gap-1">
-          <span className="text-[0.58rem] font-semibold uppercase tracking-[0.16em] text-[color:var(--muted-foreground)]">
-            Tamanho
-          </span>
-          <select
-            value={selectedSize}
-            onChange={(event) => setSelectedSize(event.target.value as JerseySize)}
-            className="w-full rounded-lg border border-[color:var(--border)] bg-[rgba(255,255,255,0.04)] px-3 py-2 text-[0.78rem] text-[color:var(--foreground)] outline-none [color-scheme:dark] [&>option]:bg-[rgb(24,29,27)] [&>option]:text-[color:var(--foreground)] focus:border-[color:var(--primary)]"
-          >
-            {product.sizes.map((size) => (
-              <option key={size} value={size}>
-                {size}
-              </option>
-            ))}
-          </select>
-        </label>
+        <div className="flex w-full flex-col gap-3">
+          <label className="flex w-full flex-col gap-1">
+            <span className="text-[0.58rem] font-semibold uppercase tracking-[0.16em] text-[color:var(--muted-foreground)]">
+              Tamanho
+            </span>
+            <select
+              value={selectedSize}
+              onChange={(event) => setSelectedSize(event.target.value as JerseySize)}
+              className="w-full rounded-lg border border-[color:var(--border)] bg-[rgba(255,255,255,0.04)] px-3 py-2 text-[0.78rem] text-[color:var(--foreground)] outline-none [color-scheme:dark] [&>option]:bg-[rgb(24,29,27)] [&>option]:text-[color:var(--foreground)] focus:border-[color:var(--primary)]"
+            >
+              {product.sizes.map((size) => (
+                <option key={size} value={size}>
+                  {size}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          {/* <div className="flex w-full flex-col gap-1">
+            <span className="text-[0.58rem] font-semibold uppercase tracking-[0.16em] text-[color:var(--muted-foreground)]">
+              Modelagem
+            </span>
+            <div className="inline-flex w-full rounded-full border border-[color:var(--border)] bg-[rgba(255,255,255,0.04)] p-1">
+              {(["Masculina", "Feminina"] as const).map((fit) => (
+                <button
+                  key={fit}
+                  type="button"
+                  onClick={() => setSelectedFit(fit)}
+                  className={`flex-1 rounded-full px-3 py-2 text-[0.72rem] font-semibold transition ${
+                    selectedFit === fit
+                      ? "bg-[color:var(--primary)] text-[color:var(--primary-foreground)]"
+                      : "text-[color:var(--muted-foreground)]"
+                  }`}
+                  aria-pressed={selectedFit === fit}
+                >
+                  {fit}
+                </button>
+              ))}
+            </div>
+          </div> */}
+        </div>
       </div>
 
       <div
         className={`mt-auto flex ${
           isCompactMobile
-            ? "flex-col gap-1.5"
+            ? "min-h-[1.4rem] flex-col justify-end gap-1"
             : "flex-col gap-2 sm:flex-row sm:items-center sm:justify-between"
         }`}
       >
@@ -214,7 +250,7 @@ export function ProductCard({
         </div>
         <Button
           type="button"
-          onClick={() => onAddToCart(product, selectedSize)}
+          onClick={() => onAddToCart(product, selectedSize, selectedFit)}
           className={`h-auto min-h-9 w-full rounded-full bg-[color:var(--primary)] px-3 py-2 text-center text-[0.76rem] leading-tight whitespace-normal text-[color:var(--primary-foreground)] hover:brightness-110 sm:w-auto sm:px-4 ${
             isCompactMobile ? "hidden sm:inline-flex" : ""
           }`}

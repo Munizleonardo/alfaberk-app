@@ -7,6 +7,7 @@ import {
   getRegionalContactLink,
   regionalContacts,
   type CartItem,
+  type JerseyFit,
   type JerseySize,
 } from "@/app/_lib/catalog";
 import { Button } from "@/app/_components/ui/button";
@@ -15,10 +16,10 @@ type CartModalProps = {
   isOpen: boolean;
   items: CartItem[];
   onClose: () => void;
-  onClearCart: () => void;
   onUpdateItemQuantity: (
     productId: string,
     size: JerseySize,
+    fit: JerseyFit,
     nextQuantity: number
   ) => void;
 };
@@ -32,7 +33,6 @@ export function CartModal({
   isOpen,
   items,
   onClose,
-  onClearCart,
   onUpdateItemQuantity,
 }: CartModalProps) {
   const [showRegionalContacts, setShowRegionalContacts] = useState(false);
@@ -115,7 +115,7 @@ export function CartModal({
             <div className="flex flex-col gap-4">
               {items.map((item) => (
                 <div
-                  key={`${item.product.id}-${item.size}`}
+                  key={`${item.product.id}-${item.size}-${item.fit}`}
                   className="flex flex-col gap-4 rounded-[1.3rem] border border-[color:var(--border)] bg-[rgba(255,255,255,0.04)] p-4 sm:flex-row sm:items-center sm:justify-between sm:rounded-[1.5rem]"
                 >
                   <div className="flex flex-col gap-2">
@@ -128,7 +128,7 @@ export function CartModal({
                       </span>
                     </div>
                     <p className="text-sm text-[color:var(--muted-foreground)]">
-                      {item.product.team} - Tamanho: {item.size}
+                      {item.product.team} - Tamanho: {item.size} - {item.fit}
                     </p>
                     <strong className="text-lg text-[color:var(--foreground)]">
                       {currencyFormatter.format(item.product.price * item.quantity)}
@@ -143,6 +143,7 @@ export function CartModal({
                           onUpdateItemQuantity(
                             item.product.id,
                             item.size,
+                            item.fit,
                             item.quantity - 1
                           )
                         }
@@ -160,6 +161,7 @@ export function CartModal({
                           onUpdateItemQuantity(
                             item.product.id,
                             item.size,
+                            item.fit,
                             item.quantity + 1
                           )
                         }
@@ -188,21 +190,18 @@ export function CartModal({
                 <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
                   <Button
                     type="button"
-                    variant="outline"
-                    onClick={() => {
-                      setShowRegionalContacts(false);
-                      onClearCart();
-                    }}
-                    className="h-12 w-full rounded-full px-6 sm:w-auto"
+                    onClick={() => setShowRegionalContacts(true)}
+                    className="order-1 h-12 w-full rounded-full bg-[color:var(--primary)] px-6 text-[color:var(--primary-foreground)] hover:brightness-110 sm:order-none sm:w-auto"
                   >
-                    Limpar carrinho
+                    Finalizar compra
                   </Button>
                   <Button
                     type="button"
-                    onClick={() => setShowRegionalContacts(true)}
-                    className="h-12 w-full rounded-full bg-[color:var(--primary)] px-6 text-[color:var(--primary-foreground)] hover:brightness-110 sm:w-auto"
+                    variant="outline"
+                    onClick={handleClose}
+                    className="order-2 h-12 w-full rounded-full px-6 sm:order-none sm:w-auto"
                   >
-                    Finalizar compra
+                    Continuar comprando
                   </Button>
                 </div>
               </div>
@@ -212,14 +211,14 @@ export function CartModal({
                   {regionalContacts.map((contact) => (
                     <div
                       key={contact.id}
-                      className="flex flex-col gap-4 rounded-[1.5rem] border border-[color:var(--border)] bg-[rgba(255,255,255,0.04)] p-5"
+                      className="flex h-full flex-col gap-4 rounded-[1.5rem] border border-[color:var(--border)] bg-[rgba(255,255,255,0.04)] p-5"
                     >
                       <p className="text-sm leading-6 text-[color:var(--foreground)]">
                         {contact.title}
                       </p>
                       <Button
                         asChild
-                        className="h-12 rounded-full bg-[color:var(--primary)] text-[color:var(--primary-foreground)] hover:brightness-110"
+                        className="mt-auto h-12 w-full rounded-full bg-[color:var(--primary)] text-[color:var(--primary-foreground)] hover:brightness-110"
                       >
                         <a
                           href={getRegionalContactLink(contact.phone, items)}
