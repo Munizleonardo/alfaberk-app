@@ -44,7 +44,7 @@ export const catalog: Jersey[] = [
     team: "Brasil",
     category: "Seleção",
     model: "Torcedor",
-    price: 149.90,
+    price: 129.90,
     sizes: ["P", "M", "G", "GG"],
     badge: "",
     shortDescription:
@@ -72,8 +72,8 @@ export const catalog: Jersey[] = [
     team: "Brasil",
     category: "Seleção",
     model: "Torcedor",
-    price: 149.90,
-    sizes: ["M", "G", "GG"],
+    price: 139.90,
+    sizes: ["M", "G"],
     badge: "",
     shortDescription:
       "Visual elegante em azul escuro com detalhes metálicos e caimento confortável.",
@@ -97,12 +97,12 @@ export const catalog: Jersey[] = [
   },
   {
     id: "brasil-2026-jogador-away",
-    name: "Camisa Brasil 2026 Away",
+    name: "Camisa Player Brasil 2026 Away",
     team: "Brasil",
     category: "Seleção",
     model: "Jogador",
-    price: 179.90,
-    sizes: ["M", "G", "GG"],
+    price: 139.90,
+    sizes: ["M", "G"],
     badge: "",
     shortDescription:
       "Visual elegante em azul escuro com detalhes metálicos e caimento confortável.",
@@ -129,7 +129,7 @@ export const catalog: Jersey[] = [
     team: "Brasil",
     category: "Seleção",
     model: "Jogador",
-    price: 179.9,
+    price: 129.9,
     sizes: ["P", "M", "G"],
     badge: "",
     shortDescription:
@@ -156,9 +156,9 @@ export const catalog: Jersey[] = [
     name: "Camisa Brasil Corteiz Home",
     team: "Brasil",
     category: "Seleção",
-    model: "Retro",
-    price: 199.9,
-    sizes: ["P", "M", "G"],
+    model: "Corteiz",
+    price: 164.9,   
+    sizes: ["M", "G"],
     badge: "",
     shortDescription:
       "Tradicional com linhas marcantes e excelente presença visual.",
@@ -179,42 +179,42 @@ export const catalog: Jersey[] = [
       accent: "#2563eb",
     },
   },
-  {
-    id: "brasil-2026-retro94",
-    name: "Camisa Brasil - Retrô 94",
-    team: "Brasil",
-    category: "Seleção",
-    model: "Retro",
-    price: 199.9,
-    sizes: ["P", "M", "G", "GG"],
-    badge: "",
-    shortDescription:
-      "Modelagem premium com tecido respirável e escudo aplicado em relevo.",
-    fullDescription:
-      "Versão inspirada no uniforme principal da Seleção, com acabamento premium, recortes anatomicos e tecido leve para uso casual ou em dia de jogo.",
-    images: {
-      Masculina: [
-        "/img/brasil/retro/retro94/brasil01.webp",
-        "/img/brasil/retro/retro94/brasil02.webp",
-        "/img/brasil/retro/retro94/03.webp",
-        "/img/brasil/retro/retro94/04.webp",
-      ],
-      Feminina: [],
-    },
-    colors: {
-      primary: "#14532d",
-      secondary: "#facc15",
-      accent: "#2563eb",
-    },
-  },
+  // {
+  //   id: "brasil-2026-retro94",
+  //   name: "Camisa Brasil - Retrô 94",
+  //   team: "Brasil",
+  //   category: "Seleção",
+  //   model: "Retro",
+  //   price: 199.9,
+  //   sizes: ["P", "M", "G", "GG"],
+  //   badge: "",
+  //   shortDescription:
+  //     "Modelagem premium com tecido respirável e escudo aplicado em relevo.",
+  //   fullDescription:
+  //     "Versão inspirada no uniforme principal da Seleção, com acabamento premium, recortes anatomicos e tecido leve para uso casual ou em dia de jogo.",
+  //   images: {
+  //     Masculina: [
+  //       "/img/brasil/retro/retro94/brasil01.webp",
+  //       "/img/brasil/retro/retro94/brasil02.webp",
+  //       "/img/brasil/retro/retro94/03.webp", 
+  //       "/img/brasil/retro/retro94/04.webp",
+  //     ],
+  //     Feminina: [],
+  //   },
+  //   colors: {
+  //     primary: "#14532d",
+  //     secondary: "#facc15",
+  //     accent: "#2563eb",
+  //   },
+  // },
   {
     id: "brasil-2026-retro-azul",
     name: "Camisa Brasil Corteiz Away",
     team: "Brasil",
     category: "Seleção",
-    model: "Retro",
-    price: 199.9,
-    sizes: ["P", "M", "G", "GG"],
+    model: "Corteiz",
+    price: 164.9,
+    sizes: [ "M", "G"],
     badge: "",
     shortDescription:
       "Modelagem premium com tecido respirável e escudo aplicado em relevo.",
