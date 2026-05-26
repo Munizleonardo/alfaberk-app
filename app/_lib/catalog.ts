@@ -1,6 +1,6 @@
 export type JerseyCategory = "Clube" | "Seleção";
 
-export type JerseyModel = "Torcedor" | "Jogador" | "Retro";
+export type JerseyModel = "Torcedor" | "Jogador" | "Retro" | "Corteiz";
 
 export type JerseySize = "P" | "M" | "G" | "GG";
 
