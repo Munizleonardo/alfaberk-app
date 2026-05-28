@@ -66,91 +66,91 @@ export const catalog: Jersey[] = [
       accent: "#2563eb",
     },
   },
-  {
-    id: "brasil-2026-torcedor-away",
-    name: "Camisa Brasil 2026 Away",
-    team: "Brasil",
-    category: "Seleção",
-    model: "Torcedor",
-    price: 139.90,
-    sizes: ["M", "G"],
-    badge: "",
-    shortDescription:
-      "Visual elegante em azul escuro com detalhes metálicos e caimento confortável.",
-    fullDescription:
-      "Camisa away com tecido macio, gola reforçada e acabamento pensado para destacar o visual da torcida com muito conforto no uso diário.",
-      images: {
-        Masculina: [
-          "/img/brasil/torcedor/away/brasil01.webp",
-          "/img/brasil/torcedor/away/brasil02.webp",
-          "/img/brasil/torcedor/away/brasil03.webp",
-          "/img/brasil/torcedor/away/brasil04.webp",
-          "/img/brasil/torcedor/away/brasil05.webp",
-        ],
-        Feminina: [],
-      },
-    colors: {
-      primary: "#0f172a",
-      secondary: "#38bdf8",
-      accent: "#e2e8f0",
-    },
-  },
-  {
-    id: "brasil-2026-jogador-away",
-    name: "Camisa Player Brasil 2026 Away",
-    team: "Brasil",
-    category: "Seleção",
-    model: "Jogador",
-    price: 139.90,
-    sizes: ["M", "G"],
-    badge: "",
-    shortDescription:
-      "Visual elegante em azul escuro com detalhes metálicos e caimento confortável.",
-    fullDescription:
-      "Camisa away com tecido macio, gola reforçada e acabamento pensado para destacar o visual da torcida com muito conforto no uso diário.",
-      images: {
-        Masculina: [
-          "/img/brasil/jogador/away/01.webp",
-          "/img/brasil/jogador/away/02.webp",
-          "/img/brasil/jogador/away/03.webp",
-          "/img/brasil/jogador/away/04.webp",
-        ],
-        Feminina: [],
-      },
-    colors: {
-      primary: "#0f172a",
-      secondary: "#38bdf8",
-      accent: "#e2e8f0",
-    },
-  },
-  {
-    id: "brasil-2026-jogador-home",
-    name: "Camisa Brasil 2026 Home",
-    team: "Brasil",
-    category: "Seleção",
-    model: "Jogador",
-    price: 129.9,
-    sizes: ["P", "M", "G"],
-    badge: "",
-    shortDescription:
-      "Tradicional com linhas marcantes e excelente presença visual.",
-    fullDescription:
-      "Modelo retrô com toque macio, cores vibrantes e composição leve para quem quer vestir o manto no estádio ou no dia a dia.",
-      images: {
-        Masculina: [
-          "/img/brasil/jogador/home/brasil01.webp",
-          "/img/brasil/jogador/home/brasil02.webp",
-          "/img/brasil/jogador/home/brasil03.webp",
-          "/img/brasil/jogador/home/brasil04.webp",
-        ],
-        Feminina: [],
-      },
-    colors: {
-      primary: "#14532d",
-      secondary: "#facc15",
-      accent: "#2563eb",
-    },
-  },
+  // {
+  //   id: "brasil-2026-torcedor-away",
+  //   name: "Camisa Brasil 2026 Away",
+  //   team: "Brasil",
+  //   category: "Seleção",
+  //   model: "Torcedor",
+  //   price: 139.90,
+  //   sizes: ["M", "G"],
+  //   badge: "",
+  //   shortDescription:
+  //     "Visual elegante em azul escuro com detalhes metálicos e caimento confortável.",
+  //   fullDescription:
+  //     "Camisa away com tecido macio, gola reforçada e acabamento pensado para destacar o visual da torcida com muito conforto no uso diário.",
+  //     images: {
+  //       Masculina: [
+  //         "/img/brasil/torcedor/away/brasil01.webp",
+  //         "/img/brasil/torcedor/away/brasil02.webp",
+  //         "/img/brasil/torcedor/away/brasil03.webp",
+  //         "/img/brasil/torcedor/away/brasil04.webp",
+  //         "/img/brasil/torcedor/away/brasil05.webp",
+  //       ],
+  //       Feminina: [],
+  //     },
+  //   colors: {
+  //     primary: "#0f172a",
+  //     secondary: "#38bdf8",
+  //     accent: "#e2e8f0",
+  //   },
+  // },
+  // {
+  //   id: "brasil-2026-jogador-away",
+  //   name: "Camisa Player Brasil 2026 Away",
+  //   team: "Brasil",
+  //   category: "Seleção",
+  //   model: "Jogador",
+  //   price: 139.90,
+  //   sizes: ["M", "G"],
+  //   badge: "",
+  //   shortDescription:
+  //     "Visual elegante em azul escuro com detalhes metálicos e caimento confortável.",
+  //   fullDescription:
+  //     "Camisa away com tecido macio, gola reforçada e acabamento pensado para destacar o visual da torcida com muito conforto no uso diário.",
+  //     images: {
+  //       Masculina: [
+  //         "/img/brasil/jogador/away/01.webp",
+  //         "/img/brasil/jogador/away/02.webp",
+  //         "/img/brasil/jogador/away/03.webp",
+  //         "/img/brasil/jogador/away/04.webp",
+  //       ],
+  //       Feminina: [],
+  //     },
+  //   colors: {
+  //     primary: "#0f172a",
+  //     secondary: "#38bdf8",
+  //     accent: "#e2e8f0",
+  //   },
+  // },
+  // {
+  //   id: "brasil-2026-jogador-home",
+  //   name: "Camisa Brasil 2026 Home",
+  //   team: "Brasil",
+  //   category: "Seleção",
+  //   model: "Jogador",
+  //   price: 129.9,
+  //   sizes: ["P", "M", "G"],
+  //   badge: "",
+  //   shortDescription:
+  //     "Tradicional com linhas marcantes e excelente presença visual.",
+  //   fullDescription:
+  //     "Modelo retrô com toque macio, cores vibrantes e composição leve para quem quer vestir o manto no estádio ou no dia a dia.",
+  //     images: {
+  //       Masculina: [
+  //         "/img/brasil/jogador/home/brasil01.webp",
+  //         "/img/brasil/jogador/home/brasil02.webp",
+  //         "/img/brasil/jogador/home/brasil03.webp",
+  //         "/img/brasil/jogador/home/brasil04.webp",
+  //       ],
+  //       Feminina: [],
+  //     },
+  //   colors: {
+  //     primary: "#14532d",
+  //     secondary: "#facc15",
+  //     accent: "#2563eb",
+  //   },
+  // },
   {
     id: "brasil-2026-retro",
     name: "Camisa Brasil Corteiz Home",
